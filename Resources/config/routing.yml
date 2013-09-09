@@ -1,0 +1,8 @@
+ant_social_profile_create:
+    pattern: /profiles
+    defaults: { _controller: AntSocialBundle:Profile:create }
+    methods: [POST]
+ant_social_profile_show:
+    pattern: /profiles/{id}
+    defaults: { _controller: AntSocialBundle:Profile:show }
+    methods: [GET]

@@ -1,0 +1,14 @@
+parameters:
+    ant.social.form_factory.profile.class.default: Ant\SocialBundle\FormFactory\ProfileFormFactory
+    ant.social.form_type.profile.class.default: Ant\SocialBundle\FormType\ProfileFormType
+    ant.social.profile.form_name: ant_social_profile
+
+services:
+    ant.social.form_factory.profile:
+        class: %ant.social.form_factory.profile.class.default%
+        arguments: [@form.factory, @ant.social.form_type.profile, %ant.social.profile.form_name%]
+    ant.social.form_type.profile:
+        class: %ant.social.form_type.profile.class.default%
+        arguments: [%ant.social.model.profile.class%]
+        tags:
+            - { name: form.type , alias: %ant.social.profile.form_name% }
