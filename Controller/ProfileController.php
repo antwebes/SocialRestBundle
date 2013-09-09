@@ -12,7 +12,7 @@ use Ant\SocialBundle\Controller\BaseRestController;
  * Profile controller.
  *
  */
-class PhotoController extends BaseRestController
+class ProfileController extends BaseRestController
 {
 	/**
 	 * Create a new profile entity

@@ -21,7 +21,7 @@ abstract class ProfileManager
 	
 	/**
 	 * @param string $id
-	 * @return PhotoInterface
+	 * @return ProfileInterface
 	 */
 	public function findProfileById($id)
 	{
