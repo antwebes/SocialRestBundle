@@ -6,6 +6,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
+use JMS\SecurityExtraBundle\Annotation\SecureParam;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
 use Ant\SocialBundle\Controller\BaseRestController;
 
 /**
