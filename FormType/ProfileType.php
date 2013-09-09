@@ -1,6 +1,6 @@
 <?php
 
-namespace Ant\SocialBundle\FormType;
+namespace Ant\SocialRestBundle\FormType;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,6 +33,6 @@ class ProfileType extends AbstractType
 
     public function getName()
     {
-        return "ant_social_profile";
+        return "ant_social_rest_profile";
     }
 }

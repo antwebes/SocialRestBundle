@@ -1,8 +1,8 @@
 <?php 
 
-namespace Ant\SocialBundle\ModelManager;
+namespace Ant\SocialRestBundle\ModelManager;
 
-use Ant\SocialBundle\Model\ProfileInterface;
+use Ant\SocialRestBundle\Model\ProfileInterface;
 
 abstract class ProfileManager
 {

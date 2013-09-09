@@ -1,9 +1,9 @@
 <?php
 
-namespace Ant\SocialBundle\EntityManager;
+namespace Ant\SocialRestBundle\EntityManager;
 
-use Ant\SocialBundle\Model\VisitInterface;
-use Ant\SocialBundle\ModelManager\VisitManager as BaseVisitManager;
+use Ant\SocialRestBundle\Model\VisitInterface;
+use Ant\SocialRestBundle\ModelManager\VisitManager as BaseVisitManager;
 
 use Doctrine\ORM\EntityManager;
 

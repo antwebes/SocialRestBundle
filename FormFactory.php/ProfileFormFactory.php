@@ -1,18 +1,18 @@
 <?php
 
 /**
- * This file is part of the AntSocialBundle package.
+ * This file is part of the AntSocialRestBundle package.
  *
  * This source file is subject to the MIT license that is bundled
  * with this source code in the file LICENSE.
  */
 
-namespace Ant\SocialBundle\FormFactory;
+namespace Ant\SocialRestBundle\FormFactory;
 
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 
-use Ant\SocialBundle\FormFactory\BaseFormFactory;
+use Ant\SocialRestBundle\FormFactory\BaseFormFactory;
 
 /**
  * ProfileForm factory class.

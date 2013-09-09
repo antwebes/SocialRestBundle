@@ -1,9 +1,9 @@
 <?php 
 
-namespace Ant\SocialBundle\Model;
+namespace Ant\SocialRestBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
-use Ant\SocialBundle\Model\ParticipantInterface;
+use Ant\SocialRestBundle\Model\ParticipantInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 abstract class Profile implements ProfileInterface {
@@ -58,14 +58,14 @@ abstract class Profile implements ProfileInterface {
 	}
 	
 	/**
-	 * @see Ant\SocialBundle\Model\ProfileInterface::setParticipant()
+	 * @see Ant\SocialRestBundle\Model\ProfileInterface::setParticipant()
 	 */
 	public function setParticipant(ParticipantInterface $participant)
 	{
 		$this->participant = $participant;
 	}
 	/**
-	 * @see ant\SocialBundle\Model\ProfileInterface::getParticipant()
+	 * @see ant\SocialRestBundle\Model\ProfileInterface::getParticipant()
 	 */
 	public function getParticipant()
 	{

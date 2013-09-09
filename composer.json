@@ -3,7 +3,7 @@
     "type": "symfony-bundle",
     "description": "Social Rest Bundle for symfony2",
     "keywords": ["social"],
-    "homepage": "https://github.com/antwebes/SocialBundle",
+    "homepage": "https://github.com/antwebes/SocialRestBundle",
     "license": "MIT",
     "authors": [
         {
@@ -19,7 +19,7 @@
     },
     "minimum-stability": "dev",
     "autoload": {
-        "psr-0": { "Ant\\SocialBundle": "" }
+        "psr-0": { "Ant\\SocialRestBundle": "" }
     },
-    "target-dir": "Ant/SocialBundle"
+    "target-dir": "Ant/SocialRestBundle"
 }

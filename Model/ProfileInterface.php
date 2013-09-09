@@ -1,8 +1,8 @@
 <?php 
 
-namespace Ant\SocialBundle\Model;
+namespace Ant\SocialRestBundle\Model;
 
-use Ant\SocialBundle\Model\ParticipantInterface;
+use Ant\SocialRestBundle\Model\ParticipantInterface;
 
 interface ProfileInterface{
 	

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ant\SocialBundle\Controller;
+namespace Ant\SocialRestBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
 use	FOS\RestBundle\Controller\FOSRestController;

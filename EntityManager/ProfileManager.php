@@ -1,9 +1,9 @@
 <?php
 
-namespace Ant\SocialBundle\EntityManager;
+namespace Ant\SocialRestBundle\EntityManager;
 
-use Ant\SocialBundle\Model\ProfileInterface;
-use Ant\SocialBundle\ModelManager\ProfileManager as BaseProfileManager;
+use Ant\SocialRestBundle\Model\ProfileInterface;
+use Ant\SocialRestBundle\ModelManager\ProfileManager as BaseProfileManager;
 
 use Doctrine\ORM\EntityManager;
 

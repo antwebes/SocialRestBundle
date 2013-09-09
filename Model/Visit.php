@@ -1,10 +1,10 @@
 <?php 
 
-namespace Ant\SocialBundle\Model;
+namespace Ant\SocialRestBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
-use Ant\SocialBundle\Model\ParticipantInterface;
-use Ant\SocialBundle\Model\Profile;
+use Ant\SocialRestBundle\Model\ParticipantInterface;
+use Ant\SocialRestBundle\Model\Profile;
 
 abstract class Visit implements VisitInterface
 {

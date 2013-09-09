@@ -1,6 +1,6 @@
 <?php 
 
-namespace Ant\SocialBundle\Controller;
+namespace Ant\SocialRestBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 
@@ -10,7 +10,7 @@ use JMS\SecurityExtraBundle\Annotation\SecureParam;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-use Ant\SocialBundle\Controller\BaseRestController;
+use Ant\SocialRestBundle\Controller\BaseRestController;
 
 use Chatea\ApiBundle\Entity\User;
 
@@ -25,8 +25,8 @@ class ProfileController extends BaseRestController
 	 *  @ApiDoc(
 	 *  	description="create a profile",
 	 *		section="user",
-	 *  	input="Ant\SocialBundle\FormType\ProfileType",
-	 *  	output="Ant\SocialBundle\Model\Profile",
+	 *  	input="Ant\SocialRestBundle\FormType\ProfileType",
+	 *  	output="Ant\SocialRestBundle\Model\Profile",
 	 *		statusCodes={
 	 *         201="New entity created",
 	 *         400="Bad request"
@@ -57,7 +57,7 @@ class ProfileController extends BaseRestController
 			return $this->buildFormErrorsView($form);
 		}
 		return $this->render(
-				'AntSocialBundle:Profile:add.html.twig',
+				'AntSocialRestBundle:Profile:add.html.twig',
 				array('form'  => $form->createView())
 		);
 	}
@@ -66,7 +66,7 @@ class ProfileController extends BaseRestController
 	 *  @ApiDoc(
 	 *  	description="show a profile",
 	 *  	section="user",
-	 *  	output="Ant\SocialBundle\Model\Profile",
+	 *  	output="Ant\SocialRestBundle\Model\Profile",
 	 *		statusCodes={
 	 *         200="Returned when successful",
 	 *         404="Unable to find Profile entity with code 42"

@@ -1,10 +1,10 @@
 <?php
 
-namespace Ant\SocialBundle\ModelManager;
+namespace Ant\SocialRestBundle\ModelManager;
 
-use Ant\SocialBundle\Model\VisitInterface;
-use Ant\SocialBundle\Model\ParticipantInterface;
-use Ant\SocialBundle\Model\ProfileInterface;
+use Ant\SocialRestBundle\Model\VisitInterface;
+use Ant\SocialRestBundle\Model\ParticipantInterface;
+use Ant\SocialRestBundle\Model\ProfileInterface;
 
 abstract class VisitManager
 {

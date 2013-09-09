@@ -1,6 +1,6 @@
 <?php
 
-namespace Ant\SocialBundle\Model;
+namespace Ant\SocialRestBundle\Model;
 
 /**
  * User owner of a profile

@@ -1,7 +1,7 @@
 <?php
 
 /**
-* This file is part of the AntewesSocialBundle package.
+* This file is part of the AntewesSocialRestBundle package.
 *
 * (c) antweb <http://github.com/antwebes/>
 *
@@ -9,9 +9,9 @@
 * with this source code in the file LICENSE.
 */
 
-namespace Ant\SocialBundle\Entity;
+namespace Ant\SocialRestBundle\Entity;
 
-use Ant\SocialBundle\Model\Profile as BaseProfile;
+use Ant\SocialRestBundle\Model\Profile as BaseProfile;
 
 /**
 *
