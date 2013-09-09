@@ -1,0 +1,25 @@
+{
+    "name": "antwebes/social-bundle",
+    "type": "symfony-bundle",
+    "description": "Social Rest Bundle for symfony2",
+    "keywords": ["social"],
+    "homepage": "https://github.com/antwebes/SocialBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Chrysweel",
+            "homepage": "https://github.com/antwebes"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2"
+    },
+    "require-dev": {
+        "symfony/framework-bundle": ">=2.1,<2.2-dev"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": { "Ant\\SocialBundle": "" }
+    },
+    "target-dir": "Ant/SocialBundle"
+}
