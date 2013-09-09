@@ -12,6 +12,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 use Ant\SocialBundle\Controller\BaseRestController;
 
+use Chatea\ApiBundle\Entity\User;
+
 /**
  * Profile controller.
  *

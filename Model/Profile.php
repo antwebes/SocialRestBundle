@@ -4,6 +4,7 @@ namespace Ant\SocialBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
 use Ant\SocialBundle\Model\ParticipantInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 abstract class Profile implements ProfileInterface {
 	
