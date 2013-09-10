@@ -19,6 +19,7 @@ use Ant\SocialRestBundle\Model\Profile as BaseProfile;
 *
 * @author Pablo  <pablo@antweb.es>
 */
-abstract class Profiler extends BaseProfiler
-{	
+abstract class Profile extends BaseProfile
+{
+	
 }

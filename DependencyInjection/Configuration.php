@@ -20,8 +20,14 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('ant_social_rest')
 	        ->children()
-	        	->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->end();
-
+	        	->scalarNode('db_driver')->cannotBeOverwritten()->isRequired()->end()
+        ->arrayNode('class')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('profile')->defaultValue('ant.social_rest.model.profile.class.default')->cannotBeEmpty()->end()
+                    ->end()
+                ->end()
+        ;
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
         // more information on that topic.

@@ -1,0 +1,10 @@
+parameters:
+    ant.social_rest.listener.profile_listener.class: Ant\SocialRestBundle\Listener\ProfileListener
+
+services:
+    ant.social_rest.listener.profile:
+        class: %ant.social_rest.listener.profile_listener.class%
+        arguments: [@chatea_api.model.user_manager]
+        tags:
+            - { name: kernel.event_listener, event: ant_social_rest.profile_created, method: profileCreated }
+    

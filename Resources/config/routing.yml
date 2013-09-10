@@ -1,5 +1,5 @@
 ant_social_rest_profile_create:
-    pattern: /profiles
+    pattern: /profiles/{id}
     defaults: { _controller: AntSocialRestBundle:Profile:create }
     methods: [POST]
 ant_social_rest_profile_show:

@@ -3,7 +3,7 @@
 namespace Ant\SocialRestBundle\Model;
 
 use Doctrine\ORM\Mapping as ORM;
-use Ant\SocialRestBundle\Model\ParticipantInterface;
+
 use Symfony\Component\Validator\Constraints as Assert;
 
 abstract class Profile implements ProfileInterface {
@@ -14,13 +14,6 @@ abstract class Profile implements ProfileInterface {
 	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
 	protected $id;
-	
-	/**
-	 * Participant owner of the profile
-	 *
-	 * @var ParticipantInterface
-	 */
-	protected $participant;
 	
 	/**
 	 * @ORM\Column(type="text", nullable=true)
@@ -58,20 +51,6 @@ abstract class Profile implements ProfileInterface {
 	}
 	
 	/**
-	 * @see Ant\SocialRestBundle\Model\ProfileInterface::setParticipant()
-	 */
-	public function setParticipant(ParticipantInterface $participant)
-	{
-		$this->participant = $participant;
-	}
-	/**
-	 * @see ant\SocialRestBundle\Model\ProfileInterface::getParticipant()
-	 */
-	public function getParticipant()
-	{
-		return $this->participant;
-	}
-	/**
 	 * Set sexualOrientation
 	 *
 	 * @param string $sexualOrientation
@@ -92,5 +71,16 @@ abstract class Profile implements ProfileInterface {
 	public function getSexualOrientation()
 	{
 		return $this->sexualOrientation;
+	}
+	
+	public function setAbout($about)
+	{
+		$this->about = $about;
+		
+	}
+	
+	public function getAbout()
+	{
+		return $this->about;
 	}
 }

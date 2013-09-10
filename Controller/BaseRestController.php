@@ -20,35 +20,35 @@ abstract class BaseRestController extends FOSRestController
 	
     public function buildView($entity, $statusCode, $context = null)
     {
-    	$visit = $this->visit($entity, $statusCode);
+    	$view = $this->view($entity, $statusCode);
     
     	if($context != null){
     		$context = SerializationContext::create()->setGroups(array($context));
-    		$visit->setSerializationContext($context);
+    		$view->setSerializationContext($context);
     	}
     		
-    	return $this->handleView($visit);
+    	return $this->handleView($view);
     }
     
     public function createError($message, $code, $statusCode)
     {
     	$errorResponse = ErrorResponse::createResponse($message, $code);
-    	$visit = View::create($errorResponse, $statusCode);
-    	return $this->handleView($visit);
+    	$view = View::create($errorResponse, $statusCode);
+    	return $this->handleView($view);
     }
     
     protected function createFormErrorsView($form, $statusCode = 400)
     {
     	$errors = ErrorsForm::getAllFormErrorMessages($form);
     	$r = $this->get('api.servicio.error_response')->createResponse($errors, $this->container->getParameter('channel.form.register'));
-    	$visit = $this->visit($r, $statusCode);
-    	$visit->setFormat('json');
-    	return $visit;
+    	$view = $this->view($r, $statusCode);
+    	$view->setFormat('json');
+    	return $view;
     }
     
     protected function buildFormErrorsView($form)
     {
-    	$visit = $this->createFormErrorsView($form);
-    	return $this->handleView($visit);
+    	$view = $this->createFormErrorsView($form);
+    	return $this->handleView($view);
     }
 }

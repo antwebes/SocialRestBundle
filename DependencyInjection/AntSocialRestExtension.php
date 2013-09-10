@@ -25,7 +25,8 @@ class AntSocialRestExtension extends Extension
         $config = $processor->processConfiguration($configuration, $configs);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-//         $loader->load('services.yml');
+        $loader->load('form.yml');
+        $loader->load('services.yml');
         
         //selecionamos el tipo de db_driver
         if (!in_array(strtolower($config['db_driver']), array('orm'))) {

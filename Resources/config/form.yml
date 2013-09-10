@@ -1,6 +1,6 @@
 parameters:
     ant.social_rest.form_factory.profile.class.default: Ant\SocialRestBundle\FormFactory\ProfileFormFactory
-    ant.social_rest.form_type.profile.class.default: Ant\SocialRestBundle\FormType\ProfileFormType
+    ant.social_rest.form_type.profile.class.default: Ant\SocialRestBundle\FormType\ProfileType
     ant.social_rest.profile.form_name: ant_social_rest_profile
 
 services:
@@ -9,6 +9,6 @@ services:
         arguments: [@form.factory, @ant.social_rest.form_type.profile, %ant.social_rest.profile.form_name%]
     ant.social_rest.form_type.profile:
         class: %ant.social_rest.form_type.profile.class.default%
-        arguments: [%ant.social_rest.model.profile.class%]
+        arguments: [%ant.social_rest.model.profile.class.default%]
         tags:
             - { name: form.type , alias: %ant.social_rest.profile.form_name% }

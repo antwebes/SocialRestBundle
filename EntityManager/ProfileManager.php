@@ -5,6 +5,8 @@ namespace Ant\SocialRestBundle\EntityManager;
 use Ant\SocialRestBundle\Model\ProfileInterface;
 use Ant\SocialRestBundle\ModelManager\ProfileManager as BaseProfileManager;
 
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+
 use Doctrine\ORM\EntityManager;
 
 class ProfileManager extends BaseProfileManager
@@ -24,20 +26,28 @@ class ProfileManager extends BaseProfileManager
 	 * @var string
 	 */
 	protected $class;
+	/**
+	 * 
+	 * @var EventDispatcherInterface
+	 */
+	protected $dispatcher;
 	
 	/**
 	 * Constructor.
 	 *
 	 * @param \Doctrine\ORM\EntityManager                  $em
 	 * @param string                                       $class
+	 * @param EventDispatcherInterface					   $dispatcher
 	 */
-	public function __construct(EntityManager $em, $class)
+	public function __construct(EntityManager $em, $class, EventDispatcherInterface $dispatcher)
 	{
 		$this->em = $em;
 		$this->repository = $em->getRepository($class);
 	
 		$metadata = $em->getClassMetadata($class);
 		$this->class = $metadata->name;
+		
+		$this->dispatcher = $dispatcher;
 	}
 	
 	
