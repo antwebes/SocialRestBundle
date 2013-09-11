@@ -3,7 +3,6 @@
 namespace Ant\SocialRestBundle\ModelManager;
 
 use Ant\SocialRestBundle\Model\VisitInterface;
-use Ant\SocialRestBundle\Model\ParticipantInterface;
 use Ant\SocialRestBundle\Model\ProfileInterface;
 
 abstract class VisitManager
@@ -18,12 +17,12 @@ abstract class VisitManager
 	
 	public function saveVisit(VisitInterface $visit)
 	{
-		$this->doSave($visit);
+		$this->doSaveVisit($visit);
 	}
 	
-	public function addVisit(ProfileInterface $profile, ParticipantInterface $participant)
+	public function addVisit(ProfileInterface $profile, $participant)
 	{
-		if (!existTodayVisit()) {
+		if (!$this->existTodayVisit($profile, $participant)) {
 			$visit = $this->createVisit();
 			$visit->setProfile($profile);
 			$visit->setParticipant($participant);
@@ -31,9 +30,9 @@ abstract class VisitManager
 		} 
 	}
 	
-	public function existTodayVisit(ProfileInterface $profile, ParticipantInterface $participant)
+	public function existTodayVisit(ProfileInterface $profile, $participant)
 	{
-		return $this->findOneVisitBy(array('profile' => $profile, 'participant' => $participant, 'date' => new \DateTime('now')));
+		return $this->findOneVisitBy(array('profile' => $profile, 'participant' => $participant, 'date' => new \DateTime('today')));
 	}
 	
 }

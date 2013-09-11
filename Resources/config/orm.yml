@@ -1,6 +1,6 @@
 parameters:
     ant.social_rest.entity_manager.visit_manager.class: Ant\SocialRestBundle\EntityManager\VisitManager
-    ant.social_rest.model.visit.class: Ant\SocialRestBundle\Entity\Visit
+    ant.social_rest.model.visit.class: Chatea\SocialBundle\Entity\Visit
     ant.social_rest.entity_manager.profile_manager.class: Ant\SocialRestBundle\EntityManager\ProfileManager
     ant.social_rest.model.profile.class.default: Chatea\SocialBundle\Entity\Profile
     
@@ -10,4 +10,4 @@ services:
         arguments: [@doctrine.orm.entity_manager, %ant.social_rest.model.visit.class%] 
     ant.social_rest.manager.profile:
         class: %ant.social_rest.entity_manager.profile_manager.class%
-        arguments: [@doctrine.orm.entity_manager, %ant.social_rest.model.profile.class.default%, @event_dispatcher]
+        arguments: [@doctrine.orm.entity_manager, %ant.social_rest.model.profile.class.default%, @event_dispatcher, @ant.social_rest.manager.visit]

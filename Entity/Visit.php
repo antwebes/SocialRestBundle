@@ -13,6 +13,7 @@ namespace Ant\SocialRestBundle\Entity;
 
 use Ant\SocialRestBundle\Model\Visit as BaseVisit;
 
+use Doctrine\ORM\Mapping as ORM;
 /**
 *
 * Must be extended and properly mapped by the end developer.
@@ -21,4 +22,23 @@ use Ant\SocialRestBundle\Model\Visit as BaseVisit;
 */
 abstract class Visit extends BaseVisit
 {	
+	protected $participant;
+	
+	/**
+	 * @ORM\Id
+	 * @ORM\ManyToOne(targetEntity="Profile", inversedBy="visits")
+	 * @ORM\JoinColumn(name="profile_id", referencedColumnName="id")
+	 */
+	protected $profile;
+	
+	/**
+	 * @ORM\Id
+	 * @ORM\Column(type="AntDateTimeType")
+	 */
+	protected $date;
+	
+	/**
+	 * @ORM\Column(type="integer", nullable=true)
+	 */
+	protected $frequency;
 }

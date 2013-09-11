@@ -23,13 +23,40 @@ abstract class Profile implements ProfileInterface {
 	protected $about;
 	
 	/**
-	 * @ORM\Column(type="string")
+	 * @ORM\Column(type="string", nullable=true)
 	 * @Assert\Choice(
 	 * choices = {"heterosexual", "homosexual", "bisexual"},
 	 * message = "profile.sexualOrientation.choice"
 	 * )
 	 */
 	protected $sexualOrientation;
+	
+	/**
+	 * @ORM\Column(type="string", nullable=true)
+	 * @Assert\Choice(
+	 * choices = {"hombre", "mujer", "otro"},
+	 * message = "profile.gender.choice"
+	 * )
+	 */
+	protected $gender;
+	
+	/**
+	 * @var date $birthday
+	 *
+	 * @ORM\Column(name="birthday", type="date", nullable=true)
+	 */
+	protected $birthday;
+	
+	/**
+	 * @ORM\Column(type="integer")
+	 */
+	protected $visits=0;
+	
+	/**
+	 * 
+	 * @ORM\Column(type="string", nullable=true)
+	 */
+	protected $youWant;
 	
 	/**
 	 * @ORM\Column(type="datetime", nullable=true)
@@ -82,5 +109,15 @@ abstract class Profile implements ProfileInterface {
 	public function getAbout()
 	{
 		return $this->about;
+	}
+	
+	public function setVisits($visits)
+	{
+		$this->visits = $visits;
+	}
+	
+	public function getVisits()
+	{
+		return $this->visits;
 	}
 }

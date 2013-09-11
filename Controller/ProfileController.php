@@ -70,17 +70,13 @@ class ProfileController extends BaseRestController
 	 */
 	public function showAction($id)
 	{
-		$profileManager = $this->get('ant.social_rest.manager.profile');
-		$profile = $profileManager->findProfileById($id);
-
+		$userVoyeur = $this->container->get('security.context')->getToken()->getUser();
+		//find the profile, increment and create a visit 
+		$profile = $this->get('ant.social_rest.manager.profile')->show($id, $userVoyeur);
+		
 		if (null === $profile) {
 			return $this->createError('Unable to find Profile entity', '42', '404');
 		}
-		
-		$user = $this->container->get('security.context')->getToken()->getUser();
-		$this->get('ant.social_rest.manager.visit')->addVisit($profile, $user);
-				
 		return $this->buildView($profile, 200);
-	
 	}
 }

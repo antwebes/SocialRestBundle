@@ -25,6 +25,7 @@ class VisitManager extends BaseVisitManager
 	 */
 	protected $class;
 	
+	
 	/**
 	 * Constructor.
 	 *
