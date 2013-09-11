@@ -46,6 +46,15 @@ abstract class BaseRestController extends FOSRestController
     	return $view;
     }
     
+    protected function serviceError($serviceError, $status)
+    {
+    	$codeLoader = $this->get('api.servicio.code_loader');
+    	$error = $codeLoader->load()[$serviceError];
+    	$errorResponse = ErrorResponse::createResponse($error['message'], $error['code']);
+    	$view = View::create($errorResponse, $status);
+    	return $this->handleView($view);
+    }
+    
     protected function buildFormErrorsView($form)
     {
     	$view = $this->createFormErrorsView($form);

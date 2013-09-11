@@ -1,8 +1,16 @@
 ant_social_rest_profile_create:
-    pattern: /profiles/{id}
+    pattern: /users/{id}/profiles
     defaults: { _controller: AntSocialRestBundle:Profile:create }
     methods: [POST]
 ant_social_rest_profile_show:
-    pattern: /profiles/{id}
+    pattern: /users/{id}/profiles
     defaults: { _controller: AntSocialRestBundle:Profile:show }
     methods: [GET]
+ant_social_rest_profile_update_put:
+    pattern: /users/{id}/profiles
+    defaults: { _controller: AntSocialRestBundle:Profile:update }
+    methods: [PUT]
+ant_social_rest_profile_update_patch:
+    pattern: /users/{id}/profiles
+    defaults: { _controller: AntSocialRestBundle:Profile:update }
+    methods: [PATCH]

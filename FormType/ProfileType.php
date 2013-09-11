@@ -34,6 +34,6 @@ class ProfileType extends AbstractType
 
     public function getName()
     {
-        return "ant_social_rest_profile";
+        return "social_profile";
     }
 }

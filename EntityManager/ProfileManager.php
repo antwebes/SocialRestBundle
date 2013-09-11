@@ -62,7 +62,7 @@ class ProfileManager extends BaseProfileManager
 	 *
 	 * @param VisitInterface $profile
 	 */
-	protected function doSaveProfile(ProfileInterface $profile)
+	protected function doSave(ProfileInterface $profile)
 	{
 		$this->em->persist($profile);
 		$this->em->flush();

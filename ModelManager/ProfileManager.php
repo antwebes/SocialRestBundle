@@ -11,9 +11,7 @@ use Ant\SocialRestBundle\Event\ProfileEvent;
 use Ant\SocialRestBundle\Event\AntSocialRestEvents as Events;
 
 abstract class ProfileManager
-{
-	
-	
+{	
 	public function createProfile()
 	{
 		$class = $this->getClass();
@@ -22,27 +20,24 @@ abstract class ProfileManager
 		return $profile;
 	}
 	
-	public function saveProfile($user, ProfileInterface $profile)
+	public function save($user, ProfileInterface $profile)
 	{
-		$this->doSaveProfile($profile);
+		$this->doSave($profile);
 		
 		$profileEvent = new ProfileEvent($user, $profile);
 		$this->dispatcher->dispatch(Events::PROFILE_CREATED, $profileEvent);
 	}
 	
-	public function show($id, $userVoyeur)
+	public function show(ProfileInterface $profile, ParticipantInterface $userVoyeur)
 	{
-		$profile = $this->findProfileById($id);
-		if ($profile){
-			if (!$this->isMyProfile($profile, $userVoyeur)){
-				$this->addVisit($profile);
-				$this->visitManager->addVisit($profile, $userVoyeur);
-			}
+		if (!$this->isMyProfile($profile, $userVoyeur)){
+			$this->addVisit($profile);
+			$this->visitManager->addVisit($profile, $userVoyeur);
 		}
 		return $profile;		
 	}
 		
-	public function isMyProfile(ProfileInterface $profile, $user)
+	public function isMyProfile(ProfileInterface $profile, ParticipantInterface $user)
 	{
 		return ($profile == $user->getProfile());
 	}
@@ -58,6 +53,24 @@ abstract class ProfileManager
 	public function addVisit(ProfileInterface $profile)
 	{
 		$profile->setVisits($profile->getVisits()+1);
-		$this->doSaveProfile($profile);
+		$this->doSave($profile);
+	}
+	
+	public function updatePatch($data, ProfileInterface $profile)
+	{
+		if ($data) {
+			foreach ($data as $key => $value) {
+				$method = 'set'. ucfirst($key);
+	
+				if(!method_exists($profile, $method)) throw new BadRequestHttpException('invalid_request');
+				call_user_func_array(array($profile, $method), array($value));
+			}
+			$this->doSave($profile);
+		}
+	}
+	
+	public function update($entity){
+	
+		$this->doSave($entity);
 	}
 }
