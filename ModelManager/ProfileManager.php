@@ -52,7 +52,7 @@ abstract class ProfileManager
 	
 	public function addVisit(ProfileInterface $profile)
 	{
-		$profile->setVisits($profile->getVisits()+1);
+		$profile->setCountVisits($profile->getCountVisits()+1);
 		$this->doSave($profile);
 	}
 	

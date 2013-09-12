@@ -9,7 +9,7 @@ interface ProfileInterface{
 	
 	public function getSexualOrientation();
 	
-	public function setVisits($visits);
+	public function setCountVisits($countVisits);
 	
-	public function getVisits();
+	public function getCountVisits();
 }

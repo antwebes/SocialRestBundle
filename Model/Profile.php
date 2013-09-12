@@ -50,7 +50,7 @@ abstract class Profile implements ProfileInterface {
 	/**
 	 * @ORM\Column(type="integer")
 	 */
-	protected $visits=0;
+	protected $countVisits=0;
 	
 	/**
 	 * 
@@ -111,13 +111,13 @@ abstract class Profile implements ProfileInterface {
 		return $this->about;
 	}
 	
-	public function setVisits($visits)
+	public function setCountVisits($countVisits)
 	{
-		$this->visits = $visits;
+		$this->countVisits = $countVisits;
 	}
 	
-	public function getVisits()
+	public function getCountVisits()
 	{
-		return $this->visits;
+		return $this->countVisits;
 	}
 }

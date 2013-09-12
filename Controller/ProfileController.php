@@ -50,7 +50,7 @@ class ProfileController extends BaseRestController
 				
 			if ($form->isValid()) {
 	
-				$profileManager->saveProfile($user, $profile);
+				$profileManager->save($user, $profile);
 				
 				return $this->buildView($profile, 200);
 			}
