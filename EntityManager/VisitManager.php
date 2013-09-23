@@ -52,6 +52,16 @@ class VisitManager extends BaseVisitManager
 		return $this->repository->findOneBy($criteria);
 	}
 	/**
+	 * Finds visits by the given criteria
+	 *
+	 * @param array $criteria
+	 * @return VisitInterface
+	 */
+	public function findVisitBy(array $criteria, $orderBy=null, $maxResult=null)
+	{
+		return $this->repository->findBy($criteria, $orderBy, $maxResult);
+	}
+	/**
 	 * Saves a visit
 	 *
 	 * @param VisitInterface $visit

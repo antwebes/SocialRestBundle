@@ -2,6 +2,8 @@
 
 namespace Ant\SocialRestBundle\ModelManager;
 
+use Ant\SocialRestBundle\Model\ParticipantInterface;
+
 use Ant\SocialRestBundle\Model\VisitInterface;
 use Ant\SocialRestBundle\Model\ProfileInterface;
 
@@ -35,4 +37,8 @@ abstract class VisitManager
 		return $this->findOneVisitBy(array('profile' => $profile, 'participant' => $participant, 'date' => new \DateTime('today')));
 	}
 	
+	public function findVisitorsOf(ProfileInterface $profile, $maxResult)
+	{
+		return $this->findVisitBy(array('profile' => $profile), null , $maxResult);
+	}
 }

@@ -14,3 +14,7 @@ ant_social_rest_profile_update_patch:
     pattern: /users/{id}/profiles
     defaults: { _controller: AntSocialRestBundle:Profile:update }
     methods: [PATCH]
+ant_social_rest_profile_visitors:
+    pattern: /users/{user_id}/visitors
+    defaults: { _controller: AntSocialRestBundle:Visit:visitors }
+    methods: [GET]
