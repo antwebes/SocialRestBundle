@@ -24,12 +24,7 @@ abstract class Visit extends BaseVisit
 {	
 	protected $participant;
 	
-	/**
-	 * @ORM\Id
-	 * @ORM\ManyToOne(targetEntity="Profile", inversedBy="visits")
-	 * @ORM\JoinColumn(name="profile_id", referencedColumnName="id")
-	 */
-	protected $profile;
+	protected $participantVoyeur;
 	
 	/**
 	 * @ORM\Id
@@ -40,5 +35,5 @@ abstract class Visit extends BaseVisit
 	/**
 	 * @ORM\Column(type="integer", nullable=true)
 	 */
-	protected $frequency;
+	protected $frequency=0;
 }

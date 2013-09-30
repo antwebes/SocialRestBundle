@@ -7,6 +7,8 @@ use Ant\SocialRestBundle\Model\ParticipantInterface;
 use Ant\SocialRestBundle\Model\VisitInterface;
 use Ant\SocialRestBundle\Model\ProfileInterface;
 
+use Ant\SocialRestBundle\Entity\AntDateTime;
+
 abstract class VisitManager
 {
 	public function createVisit()
@@ -22,23 +24,25 @@ abstract class VisitManager
 		$this->doSaveVisit($visit);
 	}
 	
-	public function addVisit(ProfileInterface $profile, $participant)
+	public function addVisit(ParticipantInterface $participant, ParticipantInterface $participantVoyeur)
 	{
-		if (!$this->existTodayVisit($profile, $participant)) {
+		$visit = $this->existTodayVisit($participant, $participantVoyeur);
+		if (!$visit) {
 			$visit = $this->createVisit();
-			$visit->setProfile($profile);
+			$visit->setParticipantVoyeur($participantVoyeur);
 			$visit->setParticipant($participant);
-			$this->saveVisit($visit);
-		} 
+		}else $visit->setFrequency($visit->getFrequency()+1);
+				 
+		$this->saveVisit($visit);
 	}
 	
-	public function existTodayVisit(ProfileInterface $profile, $participant)
+	public function existTodayVisit($participant, $participantVoyeur)
 	{
-		return $this->findOneVisitBy(array('profile' => $profile, 'participant' => $participant, 'date' => new \DateTime('today')));
+		return $this->findOneVisitBy(array('participantVoyeur' => $participantVoyeur, 'participant' => $participant, 'date' => new AntDateTime('today')));
 	}
 	
-	public function findVisitorsOf(ProfileInterface $profile, $maxResult)
+	public function findVisitorsOf(ParticipantInterface $user, $maxResult)
 	{
-		return $this->findVisitBy(array('profile' => $profile), null , $maxResult);
+		return $this->findVisitBy(array('participant' => $user), null , $maxResult);
 	}
 }

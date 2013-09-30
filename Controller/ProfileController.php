@@ -75,7 +75,7 @@ class ProfileController extends BaseRestController
 		if (!$user->getProfile()) return $this->createError('Unable to find Profile entity', '42', '404');
 		
 		//find the profile, increment and create a visit
-		$profile = $this->get('ant.social_rest.manager.profile')->show($user->getProfile(), $userVoyeur);
+		$profile = $this->get('ant.social_rest.manager.profile')->show($user->getProfile(), $user, $userVoyeur);
 		
 		return $this->buildView($profile, 200);
 	}

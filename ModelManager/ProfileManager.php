@@ -28,11 +28,11 @@ abstract class ProfileManager
 		$this->dispatcher->dispatch(Events::PROFILE_CREATED, $profileEvent);
 	}
 	
-	public function show(ProfileInterface $profile, ParticipantInterface $userVoyeur)
+	public function show(ProfileInterface $profile, ParticipantInterface $user, ParticipantInterface $userVoyeur)
 	{
 		if (!$this->isMyProfile($profile, $userVoyeur)){
 			$this->addVisit($profile);
-			$this->visitManager->addVisit($profile, $userVoyeur);
+			$this->visitManager->addVisit($user, $userVoyeur);
 		}
 		return $profile;		
 	}

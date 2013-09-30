@@ -11,8 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 abstract class Visit implements VisitInterface
 {
 	protected $participant;
-		
-	protected $profile;
+	
+	protected $participantVoyeur;
 	
 	protected $date;
 	
@@ -43,19 +43,27 @@ abstract class Visit implements VisitInterface
 	{
 		$this->participant = $participant;
 	}
-	
 	public function getParticipant()
 	{
 		return $this->participant;
 	}
 	
-	public function setFrecuency($frecuency)
+	public function setParticipantVoyeur($participant)
 	{
-		$this->frecuency = $frecuency;
+		$this->participantVoyeur = $participant;
+	}
+	public function getParticipantVoyeur()
+	{
+		return $this->participantVoyeur;
 	}
 	
-	public function getFrecuency()
+	public function setFrequency($frequency)
 	{
-		return $this->frecuency;
+		$this->frequency = $frequency;
+	}
+	
+	public function getFrequency()
+	{
+		return $this->frequency;
 	}
 }

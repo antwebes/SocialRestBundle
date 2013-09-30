@@ -41,7 +41,7 @@ class VisitController extends BaseRestController
 
 		$maxResult = $request->query->get('maxResult');
 // 		ldd($request->query->get('maxResult'));
-		$visits = $this->get('ant.social_rest.manager.visit')->findVisitorsOf($profile, $maxResult);
+		$visits = $this->get('ant.social_rest.manager.visit')->findVisitorsOf($user, $maxResult);
 		
 		return $this->buildView($visits, 200, 'list');
 	}
