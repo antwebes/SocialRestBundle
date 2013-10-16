@@ -66,8 +66,7 @@ class VisitManager extends BaseVisitManager
 	 *
 	 * @param VisitInterface $visit
 	 */
-	protected function doSaveVisit(VisitInterface $visit)
-	{
+	protected function doSaveVisit($visit){
 		$this->em->persist($visit);
 		$this->em->flush();
 	}

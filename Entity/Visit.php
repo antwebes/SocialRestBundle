@@ -26,11 +26,7 @@ abstract class Visit extends BaseVisit
 	
 	protected $participantVoyeur;
 	
-	/**
-	 * @ORM\Id
-	 * @ORM\Column(type="AntDateTimeType")
-	 */
-	protected $date;
+	protected $visitDate;
 	
 	/**
 	 * @ORM\Column(type="integer", nullable=true)

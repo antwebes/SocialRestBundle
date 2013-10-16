@@ -19,7 +19,7 @@ abstract class VisitManager
 		return $visit;
 	}
 	
-	public function saveVisit(VisitInterface $visit)
+	public function saveVisit($visit)
 	{
 		$this->doSaveVisit($visit);
 	}
@@ -27,18 +27,22 @@ abstract class VisitManager
 	public function addVisit(ParticipantInterface $participant, ParticipantInterface $participantVoyeur)
 	{
 		$visit = $this->existTodayVisit($participant, $participantVoyeur);
-		if (!$visit) {
+		//no existe el objecto visit entonces lo creamos
+		if (!is_object($visit)) {
 			$visit = $this->createVisit();
 			$visit->setParticipantVoyeur($participantVoyeur);
 			$visit->setParticipant($participant);
-		}else $visit->setFrequency($visit->getFrequency()+1);
-				 
+		}else{
+			$visit->setFrequency($visit->getFrequency()+1);
+		}
 		$this->saveVisit($visit);
 	}
 	
 	public function existTodayVisit($participant, $participantVoyeur)
 	{
-		return $this->findOneVisitBy(array('participantVoyeur' => $participantVoyeur, 'participant' => $participant, 'date' => new AntDateTime('today')));
+		$d = new \DateTime('today');
+		$timestamp = $d->getTimestamp();
+		return $this->findOneVisitBy(array('participantVoyeur' => $participantVoyeur, 'participant' => $participant, 'visitDate' => $timestamp));
 	}
 	
 	public function findVisitorsOf(ParticipantInterface $user, $maxResult)

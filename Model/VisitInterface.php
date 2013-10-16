@@ -10,11 +10,19 @@ interface VisitInterface{
 	
 	public function getParticipant();
 	
-	public function setDate($date);
+	public function setVisitDate($visitDate);
 	
-	public function getDate();
+	public function getVisitDate();
 	
 	public function setProfile(ProfileInterface $profile);
+	
+	public function setFrequency($frequency);
+	
+	public function getFrequency();
+	
+	public function setParticipantVoyeur($participant);
+	
+	public function getParticipantVoyeur();
 	
 	
 }

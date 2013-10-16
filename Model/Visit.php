@@ -4,34 +4,27 @@ namespace Ant\SocialRestBundle\Model;
 
 use Ant\SocialRestBundle\Model\ParticipantInterface;
 use Ant\SocialRestBundle\Model\Profile;
-use Ant\SocialRestBundle\Entity\AntDateTime;
+// use Ant\SocialRestBundle\Entity\AntDateTime;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
 abstract class Visit implements VisitInterface
-{
-	protected $participant;
-	
-	protected $participantVoyeur;
-	
-	protected $date;
-	
-	protected $frequency;
-	
+{	
 	public function __construct()
 	{
-		$this->date = new AntDateTime('today');
+ 		$date = new \DateTime('today');
+ 		$this->visitDate = $date->getTimestamp();
 	}
 	
 
-	public function setDate($date)
+	public function setVisitDate($visitDate)
 	{
-		$this->date = $date;
+		$this->visitDate = $visitDate;
 	}
 	
-	public function getDate()
+	public function getVisitDate()
 	{
-		return $this->date;
+		return $this->visitDate;
 	}
 	
 	public function setProfile(ProfileInterface $profile)
