@@ -40,21 +40,22 @@ class ProfileController extends BaseRestController
 	 */
 	public function createAction(User $user, Request $request)
 	{
+		if ($user->getProfile()) {
+			return $this->serviceError('profile.user.exist', '409');
+		}
 		$profileManager = $this->get('ant.social_rest.manager.profile');
 		$profile = $profileManager->createProfile();
-
+		
 		$form = $this->get('ant.social_rest.form_factory.profile')->createForm();
 		$form->setData($profile);
-		
-			$form->bind($request);
-				
+		$form->bind($request);
+
 			if ($form->isValid()) {
-	
 				$profileManager->save($user, $profile);
 				
 				return $this->buildView($profile, 200);
 			}
-			return $this->buildFormErrorsView($form);
+		return $this->buildFormErrorsView($form);
 	}
 	/**
 	 * Show a profile entity
