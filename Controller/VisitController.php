@@ -12,7 +12,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 
-use Ant\SocialRestBundle\Controller\BaseRestController;
+use Chatea\UtilBundle\Controller\BaseRestController;
 use Ant\SocialRestBundle\Model\ParticipantInterface;
 
 use Chatea\ApiBundle\Entity\User;
@@ -31,8 +31,9 @@ class VisitController extends BaseRestController
 	 *      404="Unable to find Profile entity with code 42"
 	 *    }
 	 * )
-	 * @ParamConverter("user", class="ApiBundle:User", options={"error" = "user.entity.unable_find", "id" = "user_id"})
-	 * @QueryParam(name="maxResult", description="number maxim of de visitors")
+	 * @ParamConverter("user", class="ApiBundle:User", options={"error" = "user.entity.unable_find", "id" = "id"})
+	 * @QueryParam(name="limit", description="Max number of records to be returned")
+     * @QueryParam(name="offset", description="Number of records to skip")
 	 */
 	public function visitorsAction(ParticipantInterface $user, Request $request)
 	{	
@@ -42,7 +43,27 @@ class VisitController extends BaseRestController
 		$maxResult = $request->query->get('maxResult');
 // 		ldd($request->query->get('maxResult'));
 		$visits = $this->get('ant.social_rest.manager.visit')->findVisitorsOf($user, $maxResult);
-		
-		return $this->buildView($visits, 200, 'list');
+
+		return $this->buildPagedView($visits, $user, 'ant_social_rest_profile_visitors', 200, 'list');
+	}
+
+	private function buildPagedView($collection, $entity, $route, $statusCode, $contextGroup = null)
+	{
+		$overrides = array(
+			                array(
+							    'rel' => 'self', 
+							    'definition' => array('route' => $route, 'parameters' => array('id'), 'rel' => 'self'), 
+								'data' => $entity
+						    )
+					      );
+
+		return $this->buildPagedResourcesView(
+            $collection, 
+            'Ant\SocialRestBundle\Entity\Visit', 
+            $statusCode, 
+            $contextGroup, 
+            array(), 
+            $overrides
+            );
 	}
 }

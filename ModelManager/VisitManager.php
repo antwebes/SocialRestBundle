@@ -45,8 +45,8 @@ abstract class VisitManager
 		return $this->findOneVisitBy(array('participantVoyeur' => $participantVoyeur, 'participant' => $participant, 'visitDate' => $timestamp));
 	}
 	
-	public function findVisitorsOf(ParticipantInterface $user, $maxResult)
+	public function findVisitorsOf(ParticipantInterface $user)
 	{
-		return $this->findVisitBy(array('participant' => $user), null , $maxResult);
+		return $this->findVisitBy(array('participant' => $user->getId()), null);
 	}
 }
