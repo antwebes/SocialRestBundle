@@ -10,7 +10,7 @@ use JMS\SecurityExtraBundle\Annotation\SecureParam;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
-use Ant\SocialRestBundle\Controller\BaseRestController;
+use Chatea\UtilBundle\Controller\BaseRestController;
 use Ant\SocialRestBundle\Model\ParticipantInterface;
 use Ant\SocialRestBundle\FormType\ProfileType;
 
