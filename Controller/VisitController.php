@@ -44,26 +44,8 @@ class VisitController extends BaseRestController
 // 		ldd($request->query->get('maxResult'));
 		$visits = $this->get('ant.social_rest.manager.visit')->findVisitorsOf($user, $maxResult);
 
-		return $this->buildPagedView($visits, $user, 'ant_social_rest_profile_visitors', 200, 'list');
-	}
+		$linkOverrides = array('route' => 'ant_social_rest_profile_visitors', 'parameters' => array('id'), 'rel' => 'self', 'entity' => $user);
 
-	private function buildPagedView($collection, $entity, $route, $statusCode, $contextGroup = null)
-	{
-		$overrides = array(
-			                array(
-							    'rel' => 'self', 
-							    'definition' => array('route' => $route, 'parameters' => array('id'), 'rel' => 'self'), 
-								'data' => $entity
-						    )
-					      );
-
-		return $this->buildPagedResourcesView(
-            $collection, 
-            'Ant\SocialRestBundle\Entity\Visit', 
-            $statusCode, 
-            $contextGroup, 
-            array(), 
-            $overrides
-            );
+		return $this->buildPagedResourcesView($visits, 'Ant\SocialRestBundle\Entity\Visit', 200, 'list', array(), $linkOverrides);
 	}
 }
