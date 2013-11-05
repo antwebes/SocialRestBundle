@@ -28,14 +28,18 @@ abstract class ProfileManager
 		$this->dispatcher->dispatch(Events::PROFILE_CREATED, $profileEvent);
 	}
 	
-	public function show(ProfileInterface $profile, ParticipantInterface $user, ParticipantInterface $userVoyeur)
+	public function show(ProfileInterface $profile, ParticipantInterface $user, ParticipantInterface $userVoyeur = null)
 	{
 		if(!($user == $userVoyeur)){
 			//add visit to profile
 			$this->addVisit($profile);
-			//create the object visit
-			$this->visitManager->addVisit($user, $userVoyeur);
+			
+			if($userVoyeur){
+				//create the object visit
+				$this->visitManager->addVisit($user, $userVoyeur);
+			}
 		}
+		
 		return $profile;		
 	}
 		
