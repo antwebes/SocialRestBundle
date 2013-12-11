@@ -105,8 +105,12 @@ class ProfileController extends BaseRestController
 		$data = $request->request->get('social_profile');
 		if (!$data) return $this->serviceError('invalid_request', 400);
 		
+		$editForm = $this->get('ant.social_rest.form_factory.profile')->createForm();
+		$children = $editForm->all();
+		$data = array_intersect_key($data, $children);
+		
 		if ('PUT' === $request->getMethod()){
-			$editForm = $this->get('ant.social_rest.form_factory.profile')->createForm();
+			
 			$editForm->setData($profile);
 			$editForm->bind($data);
 			 
@@ -118,7 +122,6 @@ class ProfileController extends BaseRestController
 		}
 		if ('PATCH' === $request->getMethod()){
 			
-			$editForm = $this->get('ant.social_rest.form_factory.profile')->createForm();
 			$editForm->bind($request->request->get('social_profile'));
 			
 			if ($editForm->isValid()) {

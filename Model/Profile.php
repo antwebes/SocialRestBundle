@@ -34,7 +34,7 @@ abstract class Profile implements ProfileInterface {
 	/**
 	 * @ORM\Column(type="string", nullable=true)
 	 * @Assert\Choice(
-	 * choices = {"hombre", "mujer", "otro"},
+	 * choices = {"Male", "Female", "Other"},
 	 * message = "profile.gender.choice"
 	 * )
 	 */
@@ -43,7 +43,7 @@ abstract class Profile implements ProfileInterface {
 	/**
 	 * @var date $birthday
 	 *
-	 * @ORM\Column(name="birthday", type="date", nullable=true)
+	 * @ORM\Column(name="birthday", type="string", nullable=true)
 	 */
 	protected $birthday;
 	

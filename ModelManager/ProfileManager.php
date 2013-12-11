@@ -10,6 +10,8 @@ use Ant\SocialRestBundle\Model\ProfileInterface;
 use Ant\SocialRestBundle\Event\ProfileEvent;
 use Ant\SocialRestBundle\Event\AntSocialRestEvents as Events;
 
+use Doctrine\Common\Util\Inflector as Inflector;
+
 abstract class ProfileManager
 {	
 	public function createProfile()
@@ -66,8 +68,9 @@ abstract class ProfileManager
 	{
 		if ($data) {
 			foreach ($data as $key => $value) {
+				$key = Inflector::camelize($key);
 				$method = 'set'. ucfirst($key);
-	
+		
 				if(!method_exists($profile, $method)) throw new BadRequestHttpException('invalid_request');
 				call_user_func_array(array($profile, $method), array($value));
 			}
@@ -75,8 +78,8 @@ abstract class ProfileManager
 		}
 	}
 	
-	public function update($entity){
-	
+	public function update($entity)
+	{
 		$this->doSave($entity);
 	}
 }
