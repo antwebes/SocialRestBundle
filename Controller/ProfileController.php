@@ -47,8 +47,14 @@ class ProfileController extends BaseRestController
 		$profile = $profileManager->createProfile();
 		
 		$form = $this->get('ant.social_rest.form_factory.profile')->createForm();
+		
+		//Esto es para quitar los campos extra, que puedan venir antes de enviarselo al formulario
+		$data = $request->request->get('social_profile');
+		$children = $form->all();
+		$data = array_intersect_key($data, $children);
+		
 		$form->setData($profile);
-		$form->bind($request);
+		$form->bind($data);
 
 			if ($form->isValid()) {
 				$profileManager->save($user, $profile);
@@ -106,13 +112,13 @@ class ProfileController extends BaseRestController
 		if (!$data) return $this->serviceError('invalid_request', 400);
 		
 		$editForm = $this->get('ant.social_rest.form_factory.profile')->createForm();
+		//Esto es para quitar los campos extra, que puedan venir antes de enviarselo al formulario
 		$children = $editForm->all();
 		$data = array_intersect_key($data, $children);
 		
 		if ('PUT' === $request->getMethod()){
-			
 			$editForm->setData($profile);
-			$editForm->bind($data);
+			$editForm->submit($data);
 			 
 			if ($editForm->isValid()) {				
 				$this->get('ant.social_rest.manager.profile')->update($profile);
@@ -122,7 +128,7 @@ class ProfileController extends BaseRestController
 		}
 		if ('PATCH' === $request->getMethod()){
 			
-			$editForm->bind($request->request->get('social_profile'));
+			$editForm->submit($request->request->get('social_profile'));
 			
 			if ($editForm->isValid()) {
 				try{

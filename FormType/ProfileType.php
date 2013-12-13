@@ -2,6 +2,8 @@
 
 namespace Ant\SocialRestBundle\FormType;
 
+use Ant\SocialRestBundle\Transformer\BirthdayToDateTransformer;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -21,9 +23,16 @@ class ProfileType extends AbstractType
             ->add('about')
             ->add('sexual_orientation')
             ->add('gender')
-            ->add('birthday')
             ->add('you_want')
         ;
+        
+       	$transformer = new BirthdayToDateTransformer();
+       	$builder->add(
+       			$builder->create('birthday', 'text')
+       			->addModelTransformer($transformer)
+		);
+        
+        
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
