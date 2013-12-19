@@ -41,7 +41,6 @@ abstract class ProfileManager
 				$this->visitManager->addVisit($user, $userVoyeur);
 			}
 		}
-		
 		return $profile;		
 	}
 		

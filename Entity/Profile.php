@@ -88,6 +88,8 @@ abstract class Profile extends BaseProfile
 	 */
 	protected $publicatedAt;
 	
+	protected $profilePhoto;
+	
 	public function setGender($gender)
 	{
 		$this->gender = $gender;

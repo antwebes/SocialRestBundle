@@ -15,6 +15,7 @@ abstract class Profile implements ProfileInterface {
 	protected $youWant;
 	protected $updatedAt;
 	protected $publicatedAt;
+	protected $profilePhoto;
 	
 	public function __construct()
 	{
