@@ -84,7 +84,7 @@ class ProfileController extends BaseRestController
 		//find the profile, increment and create a visit
 		$profile = $this->get('ant.social_rest.manager.profile')->show($user->getProfile(), $user, $userVoyeur);
 		
-		return $this->buildView($profile, 200, 'show_profile');
+		return $this->buildView($profile, 200, 'profile_show');
 	}
 	
 	/**
