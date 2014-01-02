@@ -35,7 +35,6 @@ class ProfileController extends BaseRestController
 	 *     }
 	 *  )
 	 *  @ParamConverter("user", class="ApiBundle:User", options={"error" = "user.entity.unable_find"})
-	 *  @SecureParam(name="user", permissions="OWNER,HAS_ROLE_ROLE_ADMIN,HAS_ROLE_APPLICATION")
 	 *  
 	 */
 	public function createAction(User $user, Request $request)

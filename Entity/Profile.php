@@ -50,7 +50,7 @@ abstract class Profile extends BaseProfile
 	/**
 	 * @ORM\Column(type="string", nullable=true)
 	 * @Assert\Choice(
-	 * choices = {"Male", "Female", "Other"},
+	 * choices = {"male", "female", "other"},
 	 * message = "profile.gender.choice"
 	 * )
 	 */

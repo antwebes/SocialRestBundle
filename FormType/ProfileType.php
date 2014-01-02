@@ -21,9 +21,9 @@ class ProfileType extends AbstractType
     {
         $builder
             ->add('about')
-            ->add('sexual_orientation')
+            ->add('sexualOrientation')
             ->add('gender')
-            ->add('you_want')
+            ->add('youWant')
         ;
         
        	$transformer = new BirthdayToDateTransformer();
