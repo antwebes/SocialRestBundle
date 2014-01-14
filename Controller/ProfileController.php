@@ -47,20 +47,26 @@ class ProfileController extends BaseRestController
 		
 		$form = $this->get('ant.social_rest.form_factory.profile')->createForm();
 		
+		//TODO con un handler como para canales
 		//Esto es para quitar los campos extra, que puedan venir antes de enviarselo al formulario
 		$data = $request->request->get('social_profile');
-		$children = $form->all();
-		$data = array_intersect_key($data, $children);
-		
-		$form->setData($profile);
-		$form->bind($data);
-
+		if ($data != null){
+			$children = $form->all();
+			$data = array_intersect_key($data, $children);
+			
+			$form->setData($profile);
+			$form->bind($data);
+			
 			if ($form->isValid()) {
 				$profileManager->save($user, $profile);
-				
+			
 				return $this->buildView($profile, 200);
 			}
-		return $this->buildFormErrorsView($form);
+			return $this->buildFormErrorsView($form);
+		}else{
+			return $this->createError('The profile can not be empty', '75', '404');
+		}
+		
 	}
 	/**
 	 * Show a profile entity
