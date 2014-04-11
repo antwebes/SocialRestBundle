@@ -11,10 +11,13 @@ use JMS\SecurityExtraBundle\Annotation\SecureParam;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 use Chatea\UtilBundle\Controller\BaseRestController;
-use Ant\SocialRestBundle\Model\ParticipantInterface;
-use Ant\SocialRestBundle\FormType\ProfileType;
 
 use Chatea\ApiBundle\Entity\User;
+
+use Ant\SocialRestBundle\Model\ParticipantInterface;
+use Ant\SocialRestBundle\FormType\ProfileType;
+use Ant\SocialRestBundle\Event\ProfileResponseEvent;
+use Ant\SocialRestBundle\Event\AntSocialRestEvents;
 
 /**
  * Profile controller.
@@ -81,7 +84,7 @@ class ProfileController extends BaseRestController
 	 *  )
 	 *  @ParamConverter("user", class="ApiBundle:User", options={"error" = "user.entity.unable_find"})
 	 */
-	public function showAction(ParticipantInterface $user)
+	public function showAction(Request $request, ParticipantInterface $user)
 	{
 		$userVoyeur = $this->container->get('security.context')->getToken()->getUser();
 		if (!$user->getProfile()) return $this->buildView(array(), 200);
@@ -89,7 +92,13 @@ class ProfileController extends BaseRestController
 		//find the profile, increment and create a visit
 		$profile = $this->get('ant.social_rest.manager.profile')->show($user->getProfile(), $user, $userVoyeur);
 		
-		return $this->buildView($profile, 200, 'profile_show');
+		$response = $this->buildView($profile, 200, 'profile_show');
+		
+		$this->getEventDispatcher()->dispatch(AntSocialRestEvents::PROFILE_SHOW_COMPLETED, new ProfileResponseEvent($user, $profile, $request, $response));
+		
+		return $response;
+		
+		
 	}
 	
 	/**
@@ -127,6 +136,7 @@ class ProfileController extends BaseRestController
 			 
 			if ($editForm->isValid()) {				
 				$this->get('ant.social_rest.manager.profile')->update($profile);
+				
 				return $this->buildView($profile, 200);
 			}
 			return $this->buildFormErrorsView($editForm);
@@ -145,5 +155,11 @@ class ProfileController extends BaseRestController
 			}		
 			return $this->buildFormErrorsView($editForm);
 		}
+	}
+	
+	protected function getEventDispatcher()
+	{
+		/** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
+		return $this->container->get('event_dispatcher');
 	}
 }

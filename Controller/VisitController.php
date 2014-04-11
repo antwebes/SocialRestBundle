@@ -2,6 +2,10 @@
 
 namespace Ant\SocialRestBundle\Controller;
 
+use Ant\SocialRestBundle\Event\VisitorsResponseEvent;
+use Ant\SocialRestBundle\Event\AntSocialRestEvents;
+use Ant\SocialRestBundle\Model\ParticipantInterface;
+
 use Symfony\Component\HttpFoundation\Request;
 
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -13,10 +17,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 
 use Chatea\UtilBundle\Controller\BaseRestController;
-use Ant\SocialRestBundle\Model\ParticipantInterface;
 
 use Chatea\ApiBundle\Entity\User;
-use Chatea\SocialBundle\Entity\Visit;
 
 class VisitController extends BaseRestController
 {
@@ -41,11 +43,22 @@ class VisitController extends BaseRestController
 		if (!$profile) return $this->createError('Unable to find Profile entity', '42', '404');
 
 		$maxResult = $request->query->get('maxResult');
-// 		ldd($request->query->get('maxResult'));
+		
 		$visits = $this->get('ant.social_rest.manager.visit')->findVisitorsOf($user, $maxResult);
 
 		$linkOverrides = array('route' => 'ant_social_rest_profile_visitors', 'parameters' => array('id'), 'rel' => 'self', 'entity' => $user);
+		
+		$response = $this->buildPagedResourcesView($visits, 'Ant\SocialRestBundle\Entity\Visit', 200, 'list', array(), $linkOverrides);
+		
+		$this->getEventDispatcher()->dispatch(AntSocialRestEvents::VISIT_VISITORS_COMPLETED, new VisitorsResponseEvent($user, $profile, $request, $response, $visits));
+		
+		return $response;
 
-		return $this->buildPagedResourcesView($visits, 'Ant\SocialRestBundle\Entity\Visit', 200, 'list', array(), $linkOverrides);
+	}
+	
+	protected function getEventDispatcher()
+	{
+		/** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
+		return $this->container->get('event_dispatcher');
 	}
 }
