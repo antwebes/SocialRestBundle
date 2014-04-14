@@ -58,7 +58,8 @@ abstract class Profile extends BaseProfile
 	
 	/**
 	 * @var date $birthday
-	 *
+	 * 
+     * @Assert\Date()
 	 * @ORM\Column(name="birthday", type="date", nullable=true)
 	 */
 	protected $birthday;

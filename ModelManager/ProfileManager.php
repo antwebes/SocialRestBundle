@@ -93,5 +93,5 @@ abstract class ProfileManager
 		$this->doSave($entity);
 	}
 
-	public abstract function doSave($entity);
+	protected abstract function doSave(ProfileInterface $entity);
 }

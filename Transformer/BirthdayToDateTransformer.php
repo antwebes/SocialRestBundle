@@ -38,10 +38,15 @@ class BirthdayToDateTransformer implements DataTransformerInterface
         if (!$birthday) {
             return null;
         }
-        $d = new \DateTime($birthday);
-         
-        $d->format('D M d o');
-         
-        return $d;
+
+        try{
+            $d = new \DateTime($birthday);
+             
+            $d->format('D M d o');
+             
+            return $d;
+        }catch(\Exception $e){
+            return $birthday;
+        }
     }
 }
