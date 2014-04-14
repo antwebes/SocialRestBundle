@@ -4,16 +4,25 @@ namespace Ant\SocialRestBundle\ModelManager;
 
 use Ant\SocialRestBundle\Entity\Profile;
 
-use Ant\SocialRestBundle\Model\ParticipantInterface;
-
-use Ant\SocialRestBundle\Model\ProfileInterface;
-use Ant\SocialRestBundle\Event\ProfileEvent;
 use Ant\SocialRestBundle\Event\AntSocialRestEvents as Events;
+use Ant\SocialRestBundle\Event\ProfileEvent;
+
+use Ant\SocialRestBundle\Model\ParticipantInterface;
+use Ant\SocialRestBundle\Model\ProfileInterface;
 
 use Doctrine\Common\Util\Inflector as Inflector;
 
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+
 abstract class ProfileManager
 {	
+	protected $dispatcher;
+
+	public function __construct(EventDispatcherInterface $dispatcher)
+	{
+		$this->dispatcher = $dispatcher;
+	}
+
 	public function createProfile()
 	{
 		$class = $this->getClass();
@@ -73,12 +82,16 @@ abstract class ProfileManager
 				if(!method_exists($profile, $method)) throw new BadRequestHttpException('invalid_request');
 				call_user_func_array(array($profile, $method), array($value));
 			}
+			$profile->setUpdatedAt(new \DateTime(date("Y-m-d\TH:i:sO")));
 			$this->doSave($profile);
 		}
 	}
 	
 	public function update($entity)
 	{
+		$entity->setUpdatedAt(new \DateTime(date("Y-m-d\TH:i:sO")));
 		$this->doSave($entity);
 	}
+
+	public abstract function doSave($entity);
 }

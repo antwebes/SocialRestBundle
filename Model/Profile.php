@@ -65,4 +65,14 @@ abstract class Profile implements ProfileInterface {
 	{
 		return $this->countVisits;
 	}
+	
+	public function setUpdatedAt($updatedAt)
+	{
+		$this->updatedAt = $updatedAt;
+	}
+	
+	public function getUpdatedAt()
+	{
+		return $this->updatedAt;
+	}
 }

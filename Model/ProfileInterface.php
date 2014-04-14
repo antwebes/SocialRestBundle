@@ -12,4 +12,8 @@ interface ProfileInterface{
 	public function setCountVisits($countVisits);
 	
 	public function getCountVisits();
+
+    public function setUpdatedAt($updatedAt);
+    
+    public function getUpdatedAt();
 }
