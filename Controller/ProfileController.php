@@ -63,7 +63,7 @@ class ProfileController extends BaseRestController
 			if ($form->isValid()) {
 				$profileManager->save($user, $profile);
 			
-				return $this->buildView($profile, 200);
+				return $this->buildView($profile, 200, 'profile_show');
 			}
 			return $this->buildFormErrorsView($form);
 		}else{
@@ -137,7 +137,7 @@ class ProfileController extends BaseRestController
 			if ($editForm->isValid()) {				
 				$this->get('ant.social_rest.manager.profile')->update($profile);
 				
-				return $this->buildView($profile, 200);
+				return $this->buildView($profile, 200, 'profile_show');
 			}
 			return $this->buildFormErrorsView($editForm);
 		}
@@ -151,7 +151,7 @@ class ProfileController extends BaseRestController
 				}catch(BadRequestHttpException $e){
 					return $this->serviceError($e->getMessage(), '400');
 				}
-				return $this->buildView($profile, 200);
+				return $this->buildView($profile, 200, 'profile_show');
 			}		
 			return $this->buildFormErrorsView($editForm);
 		}
