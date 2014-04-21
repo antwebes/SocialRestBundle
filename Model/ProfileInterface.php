@@ -16,4 +16,8 @@ interface ProfileInterface{
     public function setUpdatedAt($updatedAt);
     
     public function getUpdatedAt();
+
+    public function setBirthday($birthday);
+    
+    public function getBirthday();
 }

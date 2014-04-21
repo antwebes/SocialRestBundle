@@ -50,7 +50,7 @@ class ProfileManagerTest extends \PHPUnit_Framework_TestCase
         $profile->expects($this->once())
             ->method('setUpdatedAt');
 
-        $this->modelManager->updatePatch(array('sexualOrientation' => 'heterosexual'),$profile);
+        $this->modelManager->updatePatch(array('sexualOrientation' => 'heterosexual', 'birthday' => '1964-04-04'),$profile);
         $this->assertTrue(DateHelper::$calledDateFunction);
         DateHelper::$calledDateFunction = false;
     }

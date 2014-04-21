@@ -75,4 +75,14 @@ abstract class Profile implements ProfileInterface {
 	{
 		return $this->updatedAt;
 	}
+	
+	public function setBirthday($birthday)
+	{
+		$this->birthday = $birthday;
+	}
+	
+	public function getBirthday()
+	{
+		return $this->birthday;
+	}
 }

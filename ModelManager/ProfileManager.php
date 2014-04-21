@@ -78,6 +78,10 @@ abstract class ProfileManager
 			foreach ($data as $key => $value) {
 				$key = Inflector::camelize($key);
 				$method = 'set'. ucfirst($key);
+
+				if($key == 'birthday'){
+					$value = new \DateTime($value);
+				}
 		
 				if(!method_exists($profile, $method)) throw new BadRequestHttpException('invalid_request');
 				call_user_func_array(array($profile, $method), array($value));
