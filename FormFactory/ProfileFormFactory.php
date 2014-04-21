@@ -12,6 +12,7 @@ namespace Ant\SocialRestBundle\FormFactory;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 
+use Ant\SocialRestBundle\Model\ProfileInterface;
 use Ant\SocialRestBundle\FormFactory\BaseFormFactory;
 
 /**
@@ -21,5 +22,14 @@ use Ant\SocialRestBundle\FormFactory\BaseFormFactory;
  */
 class ProfileFormFactory extends BaseFormFactory implements ProfileFormFactoryInterface
 {
-    
+	/**
+	 * Creates a new form.
+	 *
+	 * @param ProfileInterface
+	 * @return FormInterface
+	 */
+	public function createForm(ProfileInterface $profile)
+	{
+		return $this->formFactory->createNamed($this->name, $this->type, $profile);
+	}
 }

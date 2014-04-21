@@ -119,42 +119,29 @@ class ProfileController extends BaseRestController
 	 */
 	public function updateAction(User $user, Request $request)
 	{
-		$profile = $user->getProfile();
-		if (!$profile) return $this->createError('Unable to find Profile entity', '42', '404');
+		$profileActual = $user->getProfile();
+		if (!$profileActual) return $this->createError('Unable to find Profile entity', '42', '404');
 		
 		$data = $request->request->get('social_profile');
 		if (!$data) return $this->serviceError('invalid_request', 400);
 		
-		$editForm = $this->get('ant.social_rest.form_factory.profile')->createForm();
+		$editForm = $this->get('ant.social_rest.form_factory.profile')->createForm($profileActual);
 		//Esto es para quitar los campos extra, que puedan venir antes de enviarselo al formulario
 		$children = $editForm->all();
 		$data = array_intersect_key($data, $children);
 		
-		if ('PUT' === $request->getMethod()){
-			$editForm->setData($profile);
-			$editForm->submit($data);
-			 
-			if ($editForm->isValid()) {				
-				$this->get('ant.social_rest.manager.profile')->update($profile);
-				
-				return $this->buildView($profile, 200, 'profile_show');
+		$editForm->submit($request->request->get('social_profile'), 'PATCH' !== $request->getMethod());
+		
+		if ($editForm->isValid()) {
+			try{
+				$profileNew = $editForm->getData();
+				$this->get('ant.social_rest.manager.profile')->update($profileNew);
+			}catch(BadRequestHttpException $e){
+				return $this->serviceError($e->getMessage(), '400');
 			}
-			return $this->buildFormErrorsView($editForm);
+			return $this->buildView($profileNew, 200, 'profile_show');
 		}
-		if ('PATCH' === $request->getMethod()){
-			
-			$editForm->submit($request->request->get('social_profile'));
-			
-			if ($editForm->isValid()) {
-				try{
-					$this->get('ant.social_rest.manager.profile')->updatePatch($data, $profile);
-				}catch(BadRequestHttpException $e){
-					return $this->serviceError($e->getMessage(), '400');
-				}
-				return $this->buildView($profile, 200, 'profile_show');
-			}		
-			return $this->buildFormErrorsView($editForm);
-		}
+		return $this->buildFormErrorsView($editForm);
 	}
 	
 	protected function getEventDispatcher()

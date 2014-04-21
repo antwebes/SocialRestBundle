@@ -9,6 +9,8 @@
 
 namespace Ant\SocialRestBundle\FormFactory;
 
+use Ant\SocialRestBundle\Model\ProfileInterface;
+
 use Symfony\Component\Form\FormInterface;
 
 /**
@@ -23,5 +25,5 @@ interface ProfileFormFactoryInterface
      *
      * @return FormInterface
      */
-    public function createForm();
+    public function createForm(ProfileInterface $profile);
 }
