@@ -130,7 +130,9 @@ class ProfileController extends BaseRestController
 		$children = $editForm->all();
 		$data = array_intersect_key($data, $children);
 		
-		$editForm->submit($request->request->get('social_profile'), 'PATCH' !== $request->getMethod());
+		$data = ($request->getMethod() !== 'PATCH') ? $data : $request->request->get('social_profile');
+		
+		$editForm->submit($data, 'PATCH' !== $request->getMethod());
 		
 		if ($editForm->isValid()) {
 			try{
