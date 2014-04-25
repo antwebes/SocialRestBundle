@@ -58,7 +58,7 @@ class ProfileController extends BaseRestController
 			$data = array_intersect_key($data, $children);
 			
 			$form->setData($profile);
-			$form->bind($data);
+			$form->submit($data);
 			
 			if ($form->isValid()) {
 				$profileManager->save($user, $profile);
