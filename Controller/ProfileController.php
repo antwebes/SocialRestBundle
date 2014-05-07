@@ -48,7 +48,7 @@ class ProfileController extends BaseRestController
 		$profileManager = $this->get('ant.social_rest.manager.profile');
 		$profile = $profileManager->createProfile();
 		
-		$form = $this->get('ant.social_rest.form_factory.profile')->createForm();
+		$form = $this->get('ant.social_rest.form_factory.profile')->createForm($profile);
 		
 		//TODO con un handler como para canales
 		//Esto es para quitar los campos extra, que puedan venir antes de enviarselo al formulario
