@@ -41,11 +41,11 @@ abstract class Profile extends BaseProfile
 	/**
 	 * @ORM\Column(type="string", nullable=true)
 	 * @Assert\Choice(
-	 * choices = {"heterosexual", "homosexual", "bisexual"},
-	 * message = "profile.sexualOrientation.choice"
+	 * choices = {"men", "woman", "both"},
+	 * message = "profile.seeking.choice"
 	 * )
 	 */
-	protected $sexualOrientation;
+	protected $seeking;
 	
 	/**
 	 * @ORM\Column(type="string", nullable=true)

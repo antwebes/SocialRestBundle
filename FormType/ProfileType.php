@@ -21,7 +21,7 @@ class ProfileType extends AbstractType
     {
         $builder
             ->add('about')
-            ->add('sexualOrientation')
+            ->add('seeking')
             ->add('gender')
             ->add('youWant')
         ;

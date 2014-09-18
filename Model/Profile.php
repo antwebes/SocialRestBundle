@@ -8,7 +8,7 @@ abstract class Profile implements ProfileInterface {
 		
 	protected $id;
 	protected $about;
-	protected $sexualOrientation;
+	protected $seeking;
 	protected $gender;
 	protected $birthday;
 	protected $countVisits=0;
@@ -23,26 +23,26 @@ abstract class Profile implements ProfileInterface {
 	}
 	
 	/**
-	 * Set sexualOrientation
+	 * Set seeking
 	 *
-	 * @param string $sexualOrientation
+	 * @param string $seeking
 	 * @return Perfil
 	 */
-	public function setSexualOrientation($sexualOrientation)
+	public function setSeeking($seeking)
 	{
-		$this->sexualOrientation = $sexualOrientation;
+		$this->seeking = $seeking;
 	
 		return $this;
 	}
 	
 	/**
-	 * Get sexualOrientation
+	 * Get seeking
 	 *
 	 * @return string
 	 */
-	public function getSexualOrientation()
+	public function getSeeking()
 	{
-		return $this->sexualOrientation;
+		return $this->seeking;
 	}
 	
 	public function setAbout($about)
