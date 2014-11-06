@@ -41,7 +41,7 @@ abstract class Profile extends BaseProfile
 	/**
 	 * @ORM\Column(type="string", nullable=true)
 	 * @Assert\Choice(
-	 * choices = {"men", "woman", "both"},
+	 * choices = {"men", "women", "both"},
 	 * message = "profile.seeking.choice"
 	 * )
 	 */
