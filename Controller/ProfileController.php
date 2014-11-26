@@ -141,7 +141,12 @@ class ProfileController extends BaseRestController
 			}catch(BadRequestHttpException $e){
 				return $this->serviceError($e->getMessage(), '400');
 			}
-			return $this->buildView($profileNew, 200, 'profile_show');
+			
+			$response = $this->buildView($profileNew, 200, 'profile_show');
+			
+			$this->getEventDispatcher()->dispatch(AntSocialRestEvents::PROFILE_UPDATE_COMPLETED, new ProfileResponseEvent($user, $profileNew, $request, $response));
+			
+			return $response;
 		}
 		return $this->buildFormErrorsView($editForm);
 	}

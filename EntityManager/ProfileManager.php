@@ -69,6 +69,17 @@ class ProfileManager extends BaseProfileManager
 	}
 	
 	/**
+	 * delete a profile
+	 *
+	 * @param ProfileInterface $profile
+	 */
+	protected function doDelete(ProfileInterface $profile)
+	{
+		$this->em->remove($profile);
+		$this->em->flush();
+	}
+	
+	/**
 	 * Finds one profile by the given criteria
 	 *
 	 * @param array $criteria

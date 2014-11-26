@@ -91,6 +91,15 @@ abstract class ProfileManager
 		}
 	}
 	
+	public function delete(ProfileInterface $profile, $user)
+	{
+		$profileEvent = new ProfileEvent($user, $profile);
+		
+		$this->dispatcher->dispatch(Events::PRE_PROFILE_DELETE, $profileEvent);
+		$this->doDelete($profile);
+		$this->dispatcher->dispatch(Events::POST_PROFILE_DELETE, $profileEvent);
+	}
+	
 	public function update($entity)
 	{
 		$entity->setUpdatedAt(new \DateTime(date("Y-m-d\TH:i:sO")));
