@@ -16,7 +16,7 @@ class VisitorsResponseEvent extends ProfileEvent
 	private $request;
 	private $visits;
 	
-	public function __construct(ParticipantInterface $user, ProfileInterface $profile, Request $request, Response $response, Paginator $visits)
+	public function __construct(ParticipantInterface $user, ProfileInterface $profile = null, Request $request, Response $response, Paginator $visits)
 	{
 		parent::__construct($user, $profile);
 		$this->response = $response;

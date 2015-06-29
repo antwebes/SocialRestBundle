@@ -34,5 +34,7 @@ class AntSocialRestExtension extends Extension
         }
         $loader->load(sprintf('%s.yml', $config['db_driver']));
 
+        $container->setParameter('ant_social_rest.visitors_order.default_field', $config['visitors_order']['default_field']);
+        $container->setParameter('ant_social_rest.visitors_order.default_direction', $config['visitors_order']['default_direction']);
     }
 }

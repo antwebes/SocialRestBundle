@@ -73,6 +73,12 @@ class VisitManager extends BaseVisitManager
 		  $whereSql = call_user_func_array(array($qb->expr(), 'andX'), $whereConditions);
 		  $qb->where($whereSql);
 		}
+
+		if($orderBy !== null){
+			foreach($orderBy as $order){
+				$qb->addOrderBy('v.'.$order['field'], $order['direction']);
+			}
+		}
 		
 		return new Paginator($qb->getQuery(), false);
 	}

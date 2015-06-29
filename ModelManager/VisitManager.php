@@ -45,8 +45,37 @@ abstract class VisitManager
 		return $this->findOneVisitBy(array('participantVoyeur' => $participantVoyeur, 'participant' => $participant, 'visitDate' => $timestamp));
 	}
 	
-	public function findVisitorsOf(ParticipantInterface $user)
+	public function findVisitorsOf(ParticipantInterface $user, $maxResults, $orderString)
 	{
-		return $this->findVisitBy(array('participant' => $user->getId()), null);
+		return $this->findVisitBy(array('participant' => $user->getId()), $this->buildOrdersArray($orderString));
+	}
+
+	private function buildOrdersArray($orderString)
+	{
+		$parts = $this->multiexplode(array(',', '='), $orderString);
+
+		return $parts;
+	}
+
+	/**
+	 *
+	 * @param array $delimiters
+	 * @param string $string string to explode
+	 * @return array;
+	 * @throws BadRequestHttpException
+	 */
+	private function multiexplode($delimiters, $string)
+	{
+
+		$result = array();
+		$type = explode($delimiters[0], $string);
+		foreach ($type as $pair){
+			if (!strpos($pair, $delimiters[1])){
+				throw new BadRequestHttpException('invalid_request');
+			}
+			list($k, $v) = explode($delimiters[1], $pair);
+			$result[$k] = $v;
+		}
+		return $result;
 	}
 }
