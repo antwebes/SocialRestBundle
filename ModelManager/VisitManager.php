@@ -11,6 +11,8 @@ use Ant\SocialRestBundle\Entity\AntDateTime;
 
 abstract class VisitManager
 {
+	protected $validOrderFields = array('visitDate');
+
 	public function createVisit()
 	{
 		$class = $this->getClass();
@@ -53,6 +55,12 @@ abstract class VisitManager
 	private function buildOrdersArray($orderString)
 	{
 		$parts = $this->multiexplode(array(',', '='), $orderString);
+
+		foreach ($parts as $field => $order){
+			if(!in_array($field, $this->validOrderFields)){
+				unset($parts[$field]);
+			}
+		}
 
 		return $parts;
 	}

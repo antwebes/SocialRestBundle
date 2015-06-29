@@ -36,6 +36,7 @@ class VisitController extends BaseRestController
 	 * @ParamConverter("user", class="ApiBundle:User", options={"error" = "user.entity.unable_find", "id" = "id"})
 	 * @QueryParam(name="limit", description="Max number of records to be returned")
 	 * @QueryParam(name="offset", description="Number of records to skip")
+	 * @QueryParam(name="order", description="Specify the order criteria of the result using the format COLUMN_NAME=ORDER[,COLUMN_NAME=ORDER ...]. Valid column names are visitDate. Valid orders are asc and des.")
 	 */
 	public function visitorsAction(ParticipantInterface $user, Request $request)
 	{

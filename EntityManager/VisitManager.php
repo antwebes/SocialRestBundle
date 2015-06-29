@@ -10,7 +10,6 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class VisitManager extends BaseVisitManager
 {
-	
 	/**
 	 * @var EntityManager
 	 */
@@ -75,11 +74,11 @@ class VisitManager extends BaseVisitManager
 		}
 
 		if($orderBy !== null){
-			foreach($orderBy as $order){
-				$qb->addOrderBy('v.'.$order['field'], $order['direction']);
+			foreach($orderBy as $field => $direction){
+				$qb->addOrderBy('v.'.$field, $direction);
 			}
 		}
-		
+
 		return new Paginator($qb->getQuery(), false);
 	}
 	/**
