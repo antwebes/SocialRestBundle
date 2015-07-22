@@ -35,25 +35,26 @@ class VisitController extends BaseRestController
 	 * )
 	 * @ParamConverter("user", class="ApiBundle:User", options={"error" = "user.entity.unable_find", "id" = "id"})
 	 * @QueryParam(name="limit", description="Max number of records to be returned")
-     * @QueryParam(name="offset", description="Number of records to skip")
+	 * @QueryParam(name="offset", description="Number of records to skip")
+	 * @QueryParam(name="order", description="Specify the order criteria of the result using the format COLUMN_NAME=ORDER[,COLUMN_NAME=ORDER ...]. Valid column names are visitDate. Valid orders are asc and des.")
 	 */
 	public function visitorsAction(ParticipantInterface $user, Request $request)
-	{	
-		$profile = $user->getProfile();
-		if (!$profile) return $this->createError('Unable to find Profile entity', '42', '404');
+	{
+		$orderField = $this->container->getParameter('ant_social_rest.visitors_order.default_field');
+		$orderDirection = $this->container->getParameter('ant_social_rest.visitors_order.default_direction');
+		$order  = $request->query->get('order', "$orderField=$orderDirection");
 
 		$maxResult = $request->query->get('maxResult');
-		
-		$visits = $this->get('ant.social_rest.manager.visit')->findVisitorsOf($user, $maxResult);
+
+		$visits = $this->get('ant.social_rest.manager.visit')->findVisitorsOf($user, $maxResult, $order);
 
 		$linkOverrides = array('route' => 'ant_social_rest_profile_visitors', 'parameters' => array('id'), 'rel' => 'self', 'entity' => $user);
-		
-		$response = $this->buildPagedResourcesView($visits, 'Ant\SocialRestBundle\Entity\Visit', 200, 'list', array(), $linkOverrides);
-		
-		$this->getEventDispatcher()->dispatch(AntSocialRestEvents::VISIT_VISITORS_COMPLETED, new VisitorsResponseEvent($user, $profile, $request, $response, $visits));
-		
-		return $response;
 
+		$response = $this->buildPagedResourcesView($visits, 'Ant\SocialRestBundle\Entity\Visit', 200, 'user_list', array(), $linkOverrides);
+
+		$this->getEventDispatcher()->dispatch(AntSocialRestEvents::VISIT_VISITORS_COMPLETED, new VisitorsResponseEvent($user, null, $request, $response, $visits));
+
+		return $response;
 	}
 	
 	protected function getEventDispatcher()

@@ -11,7 +11,7 @@ class ProfileEvent extends Event
 	private $profile;
 	private $user;
 	
-	public function __construct($user, ProfileInterface $profile)
+	public function __construct($user, ProfileInterface $profile = null)
 	{
 		$this->profile = $profile;
 		$this->user = $user;
