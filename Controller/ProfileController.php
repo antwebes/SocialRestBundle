@@ -27,7 +27,7 @@ class ProfileController extends BaseRestController
 {
 	/**
 	 * Create a new profile entity
-	 *  @ApiDoc(
+	 * @ApiDoc(
 	 *  	description="create a profile",
 	 *		section="user",
 	 *  	input="Ant\SocialRestBundle\FormType\ProfileType",
@@ -37,12 +37,12 @@ class ProfileController extends BaseRestController
 	 *         400="Bad request"
 	 *     }
 	 *  )
-	 *  @ParamConverter("user", class="ApiBundle:User", options={"error" = "user.entity.unable_find"})
+	 * @ParamConverter("user", class="ApiBundle:User", options={"error" = "user.entity.unable_find"})
 	 *  
 	 */
 	public function createAction(User $user, Request $request)
 	{
-            if ($user->getProfile()) {
+        if ($user->getProfile()) {
 			return $this->serviceError('profile.user.exist', '409');
 		}
 		$profileManager = $this->get('ant.social_rest.manager.profile');
@@ -53,6 +53,7 @@ class ProfileController extends BaseRestController
 		//TODO con un handler como para canales
 		//Esto es para quitar los campos extra, que puedan venir antes de enviarselo al formulario
 		$data = $request->request->get('social_profile');
+		
 		if ($data != null){
 			$children = $form->all();
 			$data = array_intersect_key($data, $children);
