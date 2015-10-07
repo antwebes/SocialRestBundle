@@ -55,9 +55,9 @@ class VisitManager extends BaseVisitManager
 	 * Finds visits by the given criteria
 	 *
 	 * @param array $criteria
-	 * @return VisitInterface
+	 * @return \Doctrine\ORM\Tools\Pagination\Paginator
 	 */
-	public function findVisitBy(array $criteria, $orderBy=null)
+	public function findVisitBy(array $criteria, $orderBy=null, $maxResults = null)
 	{
 		$qb = $this->repository->createQueryBuilder('v')->select('v');
 		$whereConditions = array();
@@ -79,6 +79,9 @@ class VisitManager extends BaseVisitManager
 			}
 		}
 
+		if($maxResults != null && is_integer($maxResults)){
+			$qb->getQuery()->setMaxResults($maxResults);
+		}
 		return new Paginator($qb->getQuery(), false);
 	}
 	/**

@@ -62,4 +62,38 @@ class VisitController extends BaseRestController
 		/** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
 		return $this->container->get('event_dispatcher');
 	}
+
+
+    /**
+     * Show the last visits one user have done
+     *
+     * @ApiDoc(
+     *  description="Show the last visits onne profile have done",
+     *  section="user",
+     *  output="Ant\SocialRestBundle\Model\Visit",
+     *	statusCodes={
+     *  	200="Returned when successful",
+     *      404="Unable to find Profile entity with code 42"
+     *    }
+     * )
+     * @ParamConverter("user", class="ApiBundle:User", options={"error" = "user.entity.unable_find", "id" = "id"})
+     * @QueryParam(name="limit", description="Max number of records to be returned")
+     * @QueryParam(name="offset", description="Number of records to skip")
+     * @QueryParam(name="order", description="Specify the order criteria of the result using the format COLUMN_NAME=ORDER[,COLUMN_NAME=ORDER ...]. Valid column names are visitDate. Valid orders are asc and des.")
+     */
+	public function voyeurAction(ParticipantInterface $user, Request $request)
+    {
+        $orderField = $this->container->getParameter('ant_social_rest.visitors_order.default_field');
+        $orderDirection = $this->container->getParameter('ant_social_rest.visitors_order.default_direction');
+        $order  = $request->query->get('order', "$orderField=$orderDirection");
+        $maxResult = $request->query->get('maxResult');
+
+        $visitsVoyeur = $this->get('ant.social_rest.manager.visit')->findVoyeursOf($user, $maxResult, $order);
+
+        $linkOverrides = array('route' => 'ant_social_rest_profile_visitors', 'parameters' => array('id'), 'rel' => 'self', 'entity' => $user);
+
+        $response = $this->buildPagedResourcesView($visitsVoyeur, 'Ant\SocialRestBundle\Entity\Visit', 200, 'user_list', array(), $linkOverrides);
+
+        return $response;
+    }
 }

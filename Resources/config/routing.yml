@@ -18,3 +18,8 @@ ant_social_rest_profile_visitors:
     pattern: /users/{id}/visitors
     defaults: { _controller: AntSocialRestBundle:Visit:visitors }
     methods: [GET]
+
+ant_social_rest_profile_voyeur:
+    pattern: /users/{id}/voyeur
+    defaults: { _controller: AntSocialRestBundle:Visit:voyeur }
+    methods: [GET]
