@@ -36,7 +36,7 @@ class VisitManagerTest extends \PHPUnit_Framework_TestCase
 
         $stub = $this->getMockForAbstractClass('Ant\SocialRestBundle\ModelManager\VisitManager');
         $stub->expects($this->any())
-            ->method('findVisitBy')
+            ->method('findVoyeursBy')
             ->with(array('participantVoyeur'=>1),array('visitDate'=>'desc'),1)
             ->will($this->returnValue($mockPaginator));
 

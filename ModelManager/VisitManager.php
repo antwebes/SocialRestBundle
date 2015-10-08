@@ -97,17 +97,17 @@ abstract class VisitManager
      */
 	public function findVoyeursOf(ParticipantInterface $user, $maxResults, $orderString)
 	{
-		return $this->findVisitBy(array('participantVoyeur' => $user->getId()), $this->buildOrdersArray($orderString), $maxResults);
+		return $this->findVoyeursBy(array('participantVoyeur' => $user->getId()), $this->buildOrdersArray($orderString), $maxResults);
 	}
 
-	/**
-	 * Finds visits by the given criteria
-	 *
-	 * @param array $criteria
-	 * @param array|null $orderBy
-	 * @param int|null $maxResults
-	 *
-	 * @return \Doctrine\ORM\Tools\Pagination\Paginator
-	 */
-	abstract protected function findVisitBy(array $criteria, $orderBy=null, $maxResults = null);
+    /**
+     * Finds visits by the given criteria
+     *
+     * @param array $criteria
+     * @param array|null $orderBy
+     * @param int|null $maxResults
+     *
+     * @return \Doctrine\ORM\Tools\Pagination\Paginator
+     */
+    abstract protected function findVoyeursBy(array $criteria, $orderBy=null, $maxResults = null);
 }

@@ -51,40 +51,75 @@ class VisitManager extends BaseVisitManager
 	{
 		return $this->repository->findOneBy($criteria);
 	}
-	/**
-	 * Finds visits by the given criteria
-	 *
-	 * @param array $criteria
-	 * @return \Doctrine\ORM\Tools\Pagination\Paginator
-	 */
-	public function findVisitBy(array $criteria, $orderBy=null, $maxResults = null)
-	{
-		$qb = $this->repository->createQueryBuilder('v')->select('v');
-		$whereConditions = array();
-		
-		
-		foreach($criteria as $name => $value){
-		  $whereConditions[] = $qb->expr()->eq('v.'.$name, ":".$name);
-		  $qb->setParameter(":".$name, $value);
-		}
-		
-		if(count($whereConditions) > 0){
-		  $whereSql = call_user_func_array(array($qb->expr(), 'andX'), $whereConditions);
-		  $qb->where($whereSql);
-		}
 
-		if($orderBy !== null){
-			foreach($orderBy as $field => $direction){
-				$qb->addOrderBy('v.'.$field, $direction);
-			}
-		}
+    /**
+     * Finds visits by the given criteria
+     *
+     * @param array $criteria
+     * @return VisitInterface
+     */
+    public function findVisitBy(array $criteria, $orderBy=null)
+    {
+        $qb = $this->repository->createQueryBuilder('v')->select('v');
+        $whereConditions = array();
 
-		if($maxResults != null && is_integer($maxResults)){
-			$qb->getQuery()->setMaxResults($maxResults);
-		}
-		return new Paginator($qb->getQuery(), false);
-	}
-	/**
+
+        foreach($criteria as $name => $value){
+            $whereConditions[] = $qb->expr()->eq('v.'.$name, ":".$name);
+            $qb->setParameter(":".$name, $value);
+        }
+
+        if(count($whereConditions) > 0){
+            $whereSql = call_user_func_array(array($qb->expr(), 'andX'), $whereConditions);
+            $qb->where($whereSql);
+        }
+        if($orderBy !== null){
+            foreach($orderBy as $field => $direction){
+                $qb->addOrderBy('v.'.$field, $direction);
+            }
+        }
+        return new Paginator($qb->getQuery(), false);
+    }
+
+    /**
+     * Finds visits by the given criteria
+     *
+     * @param array $criteria
+     * @param array|null $orderBy
+     * @param int|null $maxResults
+     *
+     * @return \Doctrine\ORM\Tools\Pagination\Paginator
+     */
+    protected function findVoyeursBy(array $criteria, $orderBy=null, $maxResults = null)
+    {
+        $qb = $this->repository->createQueryBuilder('v')->select('v');
+        $whereConditions = array();
+
+
+        foreach($criteria as $name => $value){
+            $whereConditions[] = $qb->expr()->eq('v.'.$name, ":".$name);
+            $qb->setParameter(":".$name, $value);
+        }
+
+        if(count($whereConditions) > 0){
+            $whereSql = call_user_func_array(array($qb->expr(), 'andX'), $whereConditions);
+            $qb->where($whereSql);
+        }
+
+        if($orderBy !== null){
+            foreach($orderBy as $field => $direction){
+                $qb->addOrderBy('v.'.$field, $direction);
+            }
+        }
+        $qb->groupBy('v.participant');
+
+        if($maxResults != null && is_integer($maxResults)){
+            $qb->getQuery()->setMaxResults($maxResults);
+        }
+        return new Paginator($qb->getQuery(), false);
+    }
+
+    /**
 	 * Saves a visit
 	 *
 	 * @param VisitInterface $visit
