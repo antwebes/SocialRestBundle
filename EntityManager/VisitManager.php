@@ -76,6 +76,10 @@ class VisitManager extends BaseVisitManager
         if($orderBy !== null){
             foreach($orderBy as $field => $direction){
                 $qb->addOrderBy('v.'.$field, $direction);
+
+                if($field == 'visitDate'){
+                    $qb->addOrderBy('v.id', $direction); // if two entries have the same visitDate, the id is taken in account for the order
+                }
             }
         }
         return new Paginator($qb->getQuery(), false);
@@ -120,9 +124,12 @@ class VisitManager extends BaseVisitManager
                     $qb->addOrderBy('v.'.$field, $direction);
                 }else{
                     $qb->addOrderBy($field, $direction);
+
+                    $qb->addOrderBy('v.id', $direction); // if two entries have the same visitDate, the id is taken in account for the order
                 }
             }
         }
+
         $qb->groupBy('v.participant');
 
         if($maxResults != null && is_integer($maxResults)){
