@@ -92,12 +92,20 @@ class VisitManager extends BaseVisitManager
      */
     protected function findVoyeursBy(array $criteria, $orderBy=null, $maxResults = null)
     {
-        $qb = $this->repository->createQueryBuilder('v')->select('v');
+        $qb = $this->repository
+            ->createQueryBuilder('v')->select('v,
+            (SELECT MAX(subq.visitDate) FROM '.$this->class.' AS subq WHERE subq.participant = v.participant AND subq.participantVoyeur = v.participantVoyeur) AS HIDDEN visitDate');
+
         $whereConditions = array();
 
 
         foreach($criteria as $name => $value){
-            $whereConditions[] = $qb->expr()->eq('v.'.$name, ":".$name);
+            if($name != 'visitDate') {
+                $whereConditions[] = $qb->expr()->eq('v.' . $name, ":" . $name);
+            }else{
+                $whereConditions[] = $qb->expr()->eq($name, ":" . $name);
+            }
+
             $qb->setParameter(":".$name, $value);
         }
 
@@ -108,7 +116,11 @@ class VisitManager extends BaseVisitManager
 
         if($orderBy !== null){
             foreach($orderBy as $field => $direction){
-                $qb->addOrderBy('v.'.$field, $direction);
+                if($field != 'visitDate'){
+                    $qb->addOrderBy('v.'.$field, $direction);
+                }else{
+                    $qb->addOrderBy($field, $direction);
+                }
             }
         }
         $qb->groupBy('v.participant');
@@ -116,6 +128,7 @@ class VisitManager extends BaseVisitManager
         if($maxResults != null && is_integer($maxResults)){
             $qb->getQuery()->setMaxResults($maxResults);
         }
+
         return new Paginator($qb->getQuery(), false);
     }
 
