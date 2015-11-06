@@ -72,6 +72,7 @@ class ProfileController extends BaseRestController
 		}
 		
 	}
+
 	/**
 	 * Show a profile entity
 	 *  @ApiDoc(
@@ -98,8 +99,38 @@ class ProfileController extends BaseRestController
 		$this->getEventDispatcher()->dispatch(AntSocialRestEvents::PROFILE_SHOW_COMPLETED, new ProfileResponseEvent($user, $profile, $request, $response));
 		
 		return $response;
-		
-		
+	}
+
+	/**
+	 * Increment visit counter of profile
+	 *
+	 *  @ApiDoc(
+	 *  	description="increments visits counter",
+	 *  	section="user",
+	 *  	output="Ant\SocialRestBundle\Model\Profile",
+	 *		statusCodes={
+	 *         200="Returned when successful",
+	 *         404="Unable to find Profile entity with code 42"
+	 *     }
+	 *  )
+	 *
+	 *  @ParamConverter("user", class="ApiBundle:User", options={"error" = "user.entity.unable_find"})
+	 */
+	public function addVisitAction(Request $request, ParticipantInterface $user)
+	{
+		$profile = $user->getProfile();
+
+		if(!$profile){
+			return $this->buildView(array(), 404);
+		}
+
+		$this->get('ant.social_rest.manager.profile')->addVisit($profile);
+
+		$response = $this->buildView($profile, 200, 'profile_show');
+
+		$this->getEventDispatcher()->dispatch(AntSocialRestEvents::PROFILE_SHOW_COMPLETED, new ProfileResponseEvent($user, $profile, $request, $response));
+
+		return $response;
 	}
 	
 	/**

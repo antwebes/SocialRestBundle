@@ -42,9 +42,6 @@ abstract class ProfileManager
 	public function show(ProfileInterface $profile, ParticipantInterface $user, ParticipantInterface $userVoyeur = null)
 	{
 		if(!($user == $userVoyeur)){
-			//add visit to profile
-			$this->addVisit($profile);
-			
 			if($userVoyeur){
 				//create the object visit
 				$this->visitManager->addVisit($user, $userVoyeur);

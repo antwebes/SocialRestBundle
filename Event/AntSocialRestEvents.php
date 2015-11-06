@@ -14,7 +14,7 @@ final class AntSocialRestEvents
 	* @var string
 	*/
     const PROFILE_CREATED = 'ant_social_rest.profile_created';
-    
+
     /**
      * The PROFILE_SHOW_COMPLETED event occurs after get a profile and before to send response
      * The event is an instance of Ant\SocialBundle\Event\ProfileResponseEvent
@@ -22,6 +22,14 @@ final class AntSocialRestEvents
      * @var string
      */
     const PROFILE_SHOW_COMPLETED = 'ant_social_rest.profile.show_completed';
+
+    /**
+     * The PROFILE_ADD_VISIT_COMPLETED event occurs after a profile visit counter is incremented and before to send response
+     * The event is an instance of Ant\SocialBundle\Event\ProfileResponseEvent
+     *
+     * @var string
+     */
+    const PROFILE_ADD_VISIT_COMPLETED = 'ant_social_rest.profile.add_visit_completed';
     
     /**
      * The PROFILE_UPDATE_COMPLETED event occurs after update a profile and before to send response

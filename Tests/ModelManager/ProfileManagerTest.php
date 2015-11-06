@@ -63,4 +63,20 @@ class ProfileManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->modelManager->save(null, $profile);
     }
+
+    public function testAddVisit()
+    {
+        $profile = $this->getMock('Ant\SocialRestBundle\Model\ProfileInterface');
+        $profile->expects($this->once())
+            ->method('getCountVisits')
+            ->willReturn(5);
+        $profile->expects($this->once())
+            ->method('setCountVisits')
+            ->with(6);
+        $this->modelManager->expects($this->once())
+            ->method('doSave')
+            ->with($profile);
+
+        $this->modelManager->addVisit($profile);
+    }
 }
