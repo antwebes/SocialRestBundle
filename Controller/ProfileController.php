@@ -128,7 +128,7 @@ class ProfileController extends BaseRestController
 
 		$response = $this->buildView($profile, 200, 'profile_show');
 
-		$this->getEventDispatcher()->dispatch(AntSocialRestEvents::PROFILE_SHOW_COMPLETED, new ProfileResponseEvent($user, $profile, $request, $response));
+		$this->getEventDispatcher()->dispatch(AntSocialRestEvents::PROFILE_ADD_VISIT_COMPLETED, new ProfileResponseEvent($user, $profile, $request, $response));
 
 		return $response;
 	}
