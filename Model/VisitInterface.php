@@ -5,7 +5,10 @@ namespace Ant\SocialRestBundle\Model;
 use Ant\SocialRestBundle\Entity\AntDateTime;
 
 interface VisitInterface{
-	
+	public function setId($id);
+
+	public function getId();
+
 	public function setParticipant($participant);
 	
 	public function getParticipant();

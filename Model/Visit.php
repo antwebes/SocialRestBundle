@@ -15,6 +15,16 @@ abstract class Visit implements VisitInterface
  		$date = new \DateTime('today');
  		$this->visitDate = $date->getTimestamp();
 	}
+
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+
+	public function getId()
+	{
+		return $this->id;
+	}
 	
 
 	public function setVisitDate($visitDate)
