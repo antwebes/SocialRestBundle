@@ -90,6 +90,20 @@ abstract class Profile extends BaseProfile
 	protected $publicatedAt;
 	
 	protected $profilePhoto;
+
+	/**
+	 * @ORM\Column(type="string", nullable=true)
+	 * @Assert\Choice(
+	 * choices = {"never married", "separated", "divorced", "widowed"},
+	 * message = "profile.relationshipStatus.choice"
+	 * )
+	 */
+	protected $relationshipStatus;
+
+	/**
+     * @var array
+     */
+	protected $interests;
 	
 	public function setGender($gender)
 	{

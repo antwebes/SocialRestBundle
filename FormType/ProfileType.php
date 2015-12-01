@@ -19,11 +19,23 @@ class ProfileType extends AbstractType
 	
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $choicesRoles = array(
+            'ROLE_BOT'  => 'ROLE_BOT',
+            'ROLE_USER' => 'ROLE_USER',
+            'ROLE_ADMIN' => 'ROLE_ADMIN',
+            'ROLE_SUPER_ADMIN' => 'ROLE_SUPER_ADMIN',
+            'ROLE_OPER' => 'ROLE_OPER',
+            'ROLE_PRE_OPER' => 'ROLE_PRE_OPER',
+            'ROLE_USER_ENABLED' => 'ROLE_USER_ENABLED'
+        );
+        
         $builder
             ->add('about')
             ->add('seeking')
             ->add('gender')
             ->add('youWant')
+            ->add('relationshipStatus')
+            ->add('interests')
         ;
         
        	$transformer = new BirthdayToDateTransformer();
