@@ -88,12 +88,10 @@ class ProfileController extends BaseRestController
 	 */
 	public function showAction(Request $request, ParticipantInterface $user)
 	{
-		$userVoyeur = $this->container->get('security.context')->getToken()->getUser();
 		if (!$user->getProfile()) return $this->buildView(array(), 200);
 
-		//find the profile, increment and create a visit
-		$profile = $this->get('ant.social_rest.manager.profile')->show($user->getProfile(), $user, $userVoyeur);
-		
+		$profile = $user->getProfile();
+
 		$response = $this->buildView($profile, 200, 'profile_show');
 		
 		$this->getEventDispatcher()->dispatch(AntSocialRestEvents::PROFILE_SHOW_COMPLETED, new ProfileResponseEvent($user, $profile, $request, $response));

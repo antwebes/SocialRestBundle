@@ -3,6 +3,7 @@
 namespace Ant\SocialRestBundle\EntityManager;
 
 use Ant\SocialRestBundle\Model\VisitInterface;
+use Ant\SocialRestBundle\ModelManager\ProfileManager as BaseProfileManager;
 use Ant\SocialRestBundle\ModelManager\VisitManager as BaseVisitManager;
 
 use Doctrine\ORM\EntityManager;
@@ -32,13 +33,15 @@ class VisitManager extends BaseVisitManager
 	 * @param \Doctrine\ORM\EntityManager                  $em
 	 * @param string                                       $class
 	 */
-	public function __construct(EntityManager $em, $class)
+	public function __construct(EntityManager $em, $class, BaseProfileManager $profileManager)
 	{
 		$this->em = $em;
 		$this->repository = $em->getRepository($class);
 	
 		$metadata = $em->getClassMetadata($class);
 		$this->class = $metadata->name;
+
+        parent::__construct($profileManager);
 	}
 	
 	/**

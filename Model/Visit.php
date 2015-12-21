@@ -9,7 +9,9 @@ use Ant\SocialRestBundle\Model\Profile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 abstract class Visit implements VisitInterface
-{	
+{
+	protected $frequency=0;
+
 	public function __construct()
 	{
  		$date = new \DateTime('today');

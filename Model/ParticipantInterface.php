@@ -17,4 +17,11 @@ interface ParticipantInterface
      * @return string
      */
   //  function getId();
+
+    /**
+     * Returns a profile
+     *
+     * @return ProfileInterface
+     */
+    public function getProfile();
 }

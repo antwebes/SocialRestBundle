@@ -7,7 +7,7 @@ parameters:
 services:
     ant.social_rest.manager.visit:
         class: %ant.social_rest.entity_manager.visit_manager.class%
-        arguments: [@doctrine.orm.entity_manager, %ant.social_rest.model.visit.class%] 
+        arguments: [@doctrine.orm.entity_manager, %ant.social_rest.model.visit.class%, @ant.social_rest.manager.profile]
     ant.social_rest.manager.profile:
         class: %ant.social_rest.entity_manager.profile_manager.class%
-        arguments: [@doctrine.orm.entity_manager, %ant.social_rest.model.profile.class.default%, @event_dispatcher, @ant.social_rest.manager.visit]
+        arguments: [@doctrine.orm.entity_manager, %ant.social_rest.model.profile.class.default%, @event_dispatcher]

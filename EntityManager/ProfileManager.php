@@ -33,17 +33,13 @@ class ProfileManager extends BaseProfileManager
 	protected $dispatcher;
 
 	/**
-	 * @var VisitManager
-	 */
-	protected $visitManager;
-	/**
 	 * Constructor.
 	 *
 	 * @param \Doctrine\ORM\EntityManager                  $em
 	 * @param string                                       $class
 	 * @param EventDispatcherInterface					   $dispatcher
 	 */
-	public function __construct(EntityManager $em, $class, EventDispatcherInterface $dispatcher, VisitManager $visitManager)
+	public function __construct(EntityManager $em, $class, EventDispatcherInterface $dispatcher)
 	{
 		$this->em = $em;
 		$this->repository = $em->getRepository($class);
@@ -52,8 +48,6 @@ class ProfileManager extends BaseProfileManager
 		$this->class = $metadata->name;
 		
 		$this->dispatcher = $dispatcher;
-		
-		$this->visitManager = $visitManager;
 	}
 	
 	

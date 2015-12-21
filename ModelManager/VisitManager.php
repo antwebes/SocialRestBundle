@@ -7,11 +7,23 @@ use Ant\SocialRestBundle\Model\ParticipantInterface;
 use Ant\SocialRestBundle\Model\VisitInterface;
 use Ant\SocialRestBundle\Model\ProfileInterface;
 
+use Ant\SocialRestBundle\ModelManager\ProfileManager;
+
 use Ant\SocialRestBundle\Entity\AntDateTime;
 
 abstract class VisitManager
 {
 	protected $validOrderFields = array('visitDate');
+
+	/**
+	 * @var ProfileManager
+	 */
+	protected $profileManager;
+
+	public function __construct(ProfileManager $profileManager)
+	{
+		$this->profileManager = $profileManager;
+	}
 
 	public function createVisit()
 	{
@@ -29,6 +41,7 @@ abstract class VisitManager
 	public function addVisit(ParticipantInterface $participant, ParticipantInterface $participantVoyeur)
 	{
 		$visit = $this->existTodayVisit($participant, $participantVoyeur);
+
 		//no existe el objecto visit entonces lo creamos
 		if (!is_object($visit)) {
 			$visit = $this->createVisit();
@@ -37,7 +50,14 @@ abstract class VisitManager
 		}else{
 			$visit->setFrequency($visit->getFrequency()+1);
 		}
+
 		$this->saveVisit($visit);
+
+		$profile = $participant->getProfile();
+
+		if($profile !== null){
+			$this->profileManager->addVisit($profile);
+		}
 	}
 	
 	public function existTodayVisit($participant, $participantVoyeur)
@@ -110,4 +130,26 @@ abstract class VisitManager
      * @return \Doctrine\ORM\Tools\Pagination\Paginator
      */
     abstract protected function findVoyeursBy(array $criteria, $orderBy=null, $maxResults = null);
+
+	/**
+	 * Finds one visit by the given criteria
+	 *
+	 * @param array $criteria
+	 * @return VisitInterface
+	 */
+	abstract public function findOneVisitBy(array $criteria);
+
+	/**
+	 * Saves a visit
+	 *
+	 * @param VisitInterface $visit
+	 */
+	abstract protected function doSaveVisit($visit);
+
+	/**
+	 * Returns the fully qualified visit class name
+	 *
+	 * @return string
+	 **/
+	abstract public function getClass();
 }

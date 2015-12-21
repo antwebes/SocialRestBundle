@@ -39,7 +39,7 @@ abstract class ProfileManager
 		$this->dispatcher->dispatch(Events::PROFILE_CREATED, $profileEvent);
 	}
 	
-	public function show(ProfileInterface $profile, ParticipantInterface $user, ParticipantInterface $userVoyeur = null)
+	/*public function show(ProfileInterface $profile, ParticipantInterface $user, ParticipantInterface $userVoyeur = null)
 	{
 		if(!($user == $userVoyeur)){
 			if($userVoyeur){
@@ -48,7 +48,7 @@ abstract class ProfileManager
 			}
 		}
 		return $profile;		
-	}
+	}*/
 		
 	public function isMyProfile(ProfileInterface $profile, ParticipantInterface $user)
 	{
