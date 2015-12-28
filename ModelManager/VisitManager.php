@@ -38,20 +38,12 @@ abstract class VisitManager
 		$this->doSaveVisit($visit);
 	}
 	
-	public function addVisit(ParticipantInterface $participant, ParticipantInterface $participantVoyeur)
+	public function addVisit(ParticipantInterface $participant, ParticipantInterface $participantVoyeur = null)
 	{
-		$visit = $this->existTodayVisit($participant, $participantVoyeur);
-
-		//no existe el objecto visit entonces lo creamos
-		if (!is_object($visit)) {
-			$visit = $this->createVisit();
-			$visit->setParticipantVoyeur($participantVoyeur);
-			$visit->setParticipant($participant);
-		}else{
-			$visit->setFrequency($visit->getFrequency()+1);
+		// only add a visit entry if we have an voyeur
+		if($participantVoyeur !== null){
+			$this->doAddUserVisit($participant, $participantVoyeur);
 		}
-
-		$this->saveVisit($visit);
 
 		$profile = $participant->getProfile();
 
@@ -152,4 +144,24 @@ abstract class VisitManager
 	 * @return string
 	 **/
 	abstract public function getClass();
+
+	/**
+	 * @param ParticipantInterface $participant
+	 * @param ParticipantInterface $participantVoyeur
+	 */
+	protected function doAddUserVisit(ParticipantInterface $participant, ParticipantInterface $participantVoyeur)
+	{
+		$visit = $this->existTodayVisit($participant, $participantVoyeur);
+
+		//no existe el objecto visit entonces lo creamos
+		if (!is_object($visit)) {
+			$visit = $this->createVisit();
+			$visit->setParticipantVoyeur($participantVoyeur);
+			$visit->setParticipant($participant);
+		} else {
+			$visit->setFrequency($visit->getFrequency() + 1);
+		}
+
+		$this->saveVisit($visit);
+	}
 }
