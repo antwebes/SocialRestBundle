@@ -94,7 +94,7 @@ abstract class Profile extends BaseProfile
 	/**
 	 * @ORM\Column(type="string", nullable=true)
 	 * @Assert\Choice(
-	 * choices = {"never married", "separated", "divorced", "widowed"},
+	 * choices = {"married", "never married", "separated", "divorced", "widowed"},
 	 * message = "profile.relationshipStatus.choice"
 	 * )
 	 */
