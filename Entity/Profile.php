@@ -101,6 +101,15 @@ abstract class Profile extends BaseProfile
 	protected $relationshipStatus;
 
 	/**
+	 * @ORM\ManyToMany(targetEntity="Ant\SocialRestBundle\Entity\Hobby")
+	 * @ORM\JoinTable(name="profiles_hobbies",
+	 *      joinColumns={@ORM\JoinColumn(name="profile_id", referencedColumnName="id")},
+	 *      inverseJoinColumns={@ORM\JoinColumn(name="hobby_id", referencedColumnName="id")}
+	 *      )
+	 */
+	protected $hobbies;
+
+	/**
      * @var array
      */
 	protected $interests;

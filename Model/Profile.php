@@ -4,6 +4,8 @@ namespace Ant\SocialRestBundle\Model;
 
 
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 abstract class Profile implements ProfileInterface {
 		
 	protected $id;
@@ -18,12 +20,14 @@ abstract class Profile implements ProfileInterface {
 	protected $profilePhoto;
 	protected $relationshipStatus;
 	protected $interests;
+	protected $hobbies;
 	
 
 	public function __construct()
 	{
 		$this->publicatedAt = new \DateTime('now');
 		$this->interests = array();
+		$this->hobbies = new ArrayCollection();
 	}
 	
 	/**
@@ -154,4 +158,30 @@ abstract class Profile implements ProfileInterface {
 
         return $this;
     }
+
+	/**
+	 * @return ArrayCollection
+	 */
+	public function getHobbies()
+	{
+		return $this->hobbies;
+	}
+
+	/**
+	 * @param ArrayCollection $hobbies
+	 */
+	public function setHobbies($hobbies)
+	{
+		$this->hobbies = $hobbies;
+	}
+
+	public function addHobby(Hobby $hobby)
+	{
+		$this->hobbies->add($hobby);
+	}
+
+	public function removeHobby(Hobby $hobby)
+	{
+		$this->hobbies->removeElement($hobby);
+	}
 }

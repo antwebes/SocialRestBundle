@@ -35,7 +35,7 @@ class ProfileType extends AbstractType
             ->add('gender')
             ->add('youWant')
             ->add('relationshipStatus')
-            ->add('interests')
+            ->add('hobbies')
         ;
         
        	$transformer = new BirthdayToDateTransformer();
