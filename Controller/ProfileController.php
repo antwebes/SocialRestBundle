@@ -154,8 +154,8 @@ class ProfileController extends BaseRestController
 		
 		$data = $request->request->get('social_profile');
 		if (!$data) return $this->serviceError('invalid_request', 400);
-		
-		$editForm = $this->get('ant.social_rest.form_factory.profile')->createForm($profileActual);
+
+		$editForm = $this->createUpdateProfileForm($profileActual, $request);
 		//Esto es para quitar los campos extra, que puedan venir antes de enviarselo al formulario
 		$children = $editForm->all();
 		$data = array_intersect_key($data, $children);
@@ -179,6 +179,11 @@ class ProfileController extends BaseRestController
 			return $response;
 		}
 		return $this->buildFormErrorsView($editForm);
+	}
+
+	protected function createUpdateProfileForm($profile, Request $request)
+	{
+		return $this->get('ant.social_rest.form_factory.profile')->createForm($profile);
 	}
 	
 	protected function getEventDispatcher()

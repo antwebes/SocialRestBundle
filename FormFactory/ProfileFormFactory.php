@@ -28,8 +28,8 @@ class ProfileFormFactory extends BaseFormFactory implements ProfileFormFactoryIn
 	 * @param ProfileInterface
 	 * @return FormInterface
 	 */
-	public function createForm(ProfileInterface $profile)
+	public function createForm(ProfileInterface $profile, $options = array())
 	{
-		return $this->formFactory->createNamed($this->name, $this->type, $profile);
+		return $this->formFactory->createNamed($this->name, $this->type, $profile, $options);
 	}
 }

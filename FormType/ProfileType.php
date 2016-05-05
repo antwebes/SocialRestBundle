@@ -28,17 +28,20 @@ class ProfileType extends AbstractType
             'ROLE_PRE_OPER' => 'ROLE_PRE_OPER',
             'ROLE_USER_ENABLED' => 'ROLE_USER_ENABLED'
         );
-        
+
         $builder
             ->add('about')
             ->add('seeking')
             ->add('gender')
             ->add('youWant')
             ->add('relationshipStatus')
-            ->add('hobbies')
         ;
-        
-       	$transformer = new BirthdayToDateTransformer();
+
+        if($options['update_hobbies']){
+            $builder->add('hobbies');
+        }
+
+        $transformer = new BirthdayToDateTransformer();
        	$builder->add(
        			$builder->create('birthday', 'text')
        			->addModelTransformer($transformer)
@@ -52,7 +55,8 @@ class ProfileType extends AbstractType
     	parent::setDefaultOptions($resolver);
         $resolver->setDefaults(array(        	
             'data_class' => $this->profileClass,
-        	'csrf_protection' => false
+        	'csrf_protection' => false,
+            'update_hobbies' => true,
         ));
     }
 

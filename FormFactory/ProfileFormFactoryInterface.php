@@ -25,5 +25,5 @@ interface ProfileFormFactoryInterface
      *
      * @return FormInterface
      */
-    public function createForm(ProfileInterface $profile);
+    public function createForm(ProfileInterface $profile, $options = array());
 }
